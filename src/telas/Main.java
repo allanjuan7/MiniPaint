@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    // fazendo uma mudança...
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("TelaInicial.fxml"));
