@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.canvas.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="telas.TelaPrincipalController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Arquivo">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Novo..." />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Salvar" />
+                  <MenuItem mnemonicParsing="false" text="Salvar como... " />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Editar">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Apagar tudo" />
+                  <MenuItem mnemonicParsing="false" text="Cor do plano de fundo..." />
+               </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Ajuda" />
+        </menus>
+      </MenuBar>
+   </top>
+   <left>
+      <ToolBar orientation="VERTICAL" prefHeight="391.0" prefWidth="84.0" BorderPane.alignment="CENTER">
+        <items>
+            <Button fx:id="ferramentaTriangulo" minWidth="35.0" mnemonicParsing="false" onAction="#ferramentaClicada" text="T" />
+          <Button fx:id="ferramentaQuadrilatero" minWidth="35.0" mnemonicParsing="false" onAction="#ferramentaClicada" text="Q" />
+            <Button fx:id="ferramentaCirculo" minWidth="35.0" mnemonicParsing="false" onAction="#ferramentaClicada" text="C" />
+        </items>
+      </ToolBar>
+   </left>
+   <right>
+      <TreeView prefHeight="368.0" prefWidth="149.0" BorderPane.alignment="CENTER" />
+   </right>
+   <center>
+      <Canvas height="368.0" width="353.0" BorderPane.alignment="CENTER" />
+   </center>
+   <bottom>
+      <Label fx:id="instrucoes" text="Selecione uma ferramenta à esquerda para começar a desenhar" BorderPane.alignment="CENTER" />
+   </bottom>
+</BorderPane>
