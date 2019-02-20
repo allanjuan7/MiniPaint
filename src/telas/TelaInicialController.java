@@ -26,7 +26,7 @@ public class TelaInicialController {
         Parent root = FXMLLoader.load(getClass().getResource("TelaPrincipal.fxml"));
         Stage telaPrincipal = new Stage();
         telaPrincipal.setTitle("MiniPaint");
-        telaPrincipal.setScene(new Scene(root, 800, 500));
+        telaPrincipal.setScene(new Scene(root, 800, 600));
         telaPrincipal.show();
     }
 }

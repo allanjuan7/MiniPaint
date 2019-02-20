@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.canvas.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import telas.TelaPintura?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="telas.TelaPrincipalController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="telas.TelaPrincipalController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -32,11 +36,13 @@
       </MenuBar>
    </top>
    <left>
-      <ToolBar orientation="VERTICAL" prefHeight="391.0" prefWidth="84.0" BorderPane.alignment="CENTER">
+      <ToolBar orientation="VERTICAL" prefHeight="391.0" prefWidth="60.0" BorderPane.alignment="CENTER">
         <items>
-            <Button fx:id="ferramentaTriangulo" minWidth="35.0" mnemonicParsing="false" onAction="#ferramentaClicada" text="T" />
-          <Button fx:id="ferramentaQuadrilatero" minWidth="35.0" mnemonicParsing="false" onAction="#ferramentaClicada" text="Q" />
-            <Button fx:id="ferramentaCirculo" minWidth="35.0" mnemonicParsing="false" onAction="#ferramentaClicada" text="C" />
+            <Button fx:id="ferramentaTriangulo" minWidth="35.0" mnemonicParsing="false" onAction="#ferramentaClicada" prefWidth="55.0" text="T" />
+          <Button fx:id="ferramentaQuadrilatero" minWidth="35.0" mnemonicParsing="false" onAction="#ferramentaClicada" prefWidth="55.0" text="Q" />
+            <Button fx:id="ferramentaCirculo" minWidth="35.0" mnemonicParsing="false" onAction="#ferramentaClicada" prefWidth="55.0" text="C" />
+            <Button fx:id="butLimpar" mnemonicParsing="false" onAction="#limpar" prefWidth="55.0" text="Limpar" />
+            <ColorPicker fx:id="selecCor" prefHeight="25.0" prefWidth="55.0" />
         </items>
       </ToolBar>
    </left>
@@ -44,7 +50,10 @@
       <TreeView prefHeight="368.0" prefWidth="149.0" BorderPane.alignment="CENTER" />
    </right>
    <center>
-      <Canvas height="368.0" width="353.0" BorderPane.alignment="CENTER" />
+      <TelaPintura fx:id="teladepintura" height="558.0" onMousePressed="#onMousePressed" onMouseReleased="#onMouseReleased" width="586.0" BorderPane.alignment="CENTER">
+         <cursor>
+            <Cursor fx:constant="CROSSHAIR" />
+         </cursor></TelaPintura>
    </center>
    <bottom>
       <Label fx:id="instrucoes" text="Selecione uma ferramenta à esquerda para começar a desenhar" BorderPane.alignment="CENTER" />
