@@ -41,7 +41,7 @@
             <Button fx:id="ferramentaTriangulo" minWidth="35.0" mnemonicParsing="false" onAction="#ferramentaClicada" prefWidth="55.0" text="T" />
           <Button fx:id="ferramentaQuadrilatero" minWidth="35.0" mnemonicParsing="false" onAction="#ferramentaClicada" prefWidth="55.0" text="Q" />
             <Button fx:id="ferramentaCirculo" minWidth="35.0" mnemonicParsing="false" onAction="#ferramentaClicada" prefWidth="55.0" text="C" />
-            <Button fx:id="butLimpar" mnemonicParsing="false" onAction="#limpar" prefWidth="55.0" text="Limpar" />
+            <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#limpar" prefWidth="55.0" text="Limpar" />
             <ColorPicker fx:id="selecCor" prefHeight="25.0" prefWidth="55.0" />
         </items>
       </ToolBar>
@@ -50,7 +50,7 @@
       <TreeView prefHeight="368.0" prefWidth="149.0" BorderPane.alignment="CENTER" />
    </right>
    <center>
-      <TelaPintura fx:id="teladepintura" height="558.0" onMousePressed="#onMousePressed" onMouseReleased="#onMouseReleased" width="586.0" BorderPane.alignment="CENTER">
+      <TelaPintura fx:id="telaPintura" height="558.0" onMousePressed="#onMousePressed" onMouseReleased="#onMouseReleased" width="586.0" BorderPane.alignment="CENTER">
          <cursor>
             <Cursor fx:constant="CROSSHAIR" />
          </cursor></TelaPintura>

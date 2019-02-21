@@ -8,22 +8,22 @@ import javafx.scene.canvas.Canvas;
  */
 public class TelaPintura extends Canvas {
 
-    private double lastX, lastY;
+    private double xInicial, yInicial;
 
-    public double getLastX() {
-        return lastX;
+    public double getxInicial() {
+        return xInicial;
     }
 
-    public void setLastX(double lastX) {
-        this.lastX = lastX;
+    public void setxInicial(double xInicial) {
+        this.xInicial = xInicial;
     }
 
-    public double getLastY() {
-        return lastY;
+    public double getyInicial() {
+        return yInicial;
     }
 
-    public void setLastY(double lastY) {
-        this.lastY = lastY;
+    public void setyInicial(double yInicial) {
+        this.yInicial = yInicial;
     }
 
 }

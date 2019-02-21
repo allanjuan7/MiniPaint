@@ -23,13 +23,13 @@ public class TelaPrincipalController {
     private Button ferramentaCirculo;
 
     @FXML
-    private Button butLimpar;
+    private Button btnLimpar;
 
     @FXML
     private ColorPicker selecCor;
 
     @FXML
-    private TelaPintura teladepintura;
+    private TelaPintura telaPintura;
 
 
     /**
@@ -38,8 +38,8 @@ public class TelaPrincipalController {
      * @param event Evento do botão do mouse ser pressionado na tela.
      */
     public void onMousePressed(MouseEvent event) {
-        teladepintura.setLastX(event.getX());
-        teladepintura.setLastY(event.getY());
+        telaPintura.setxInicial(event.getX());
+        telaPintura.setyInicial(event.getY());
     }
 
     /**
@@ -51,30 +51,33 @@ public class TelaPrincipalController {
 
     public void onMouseReleased(MouseEvent event){
 
-        double actualX, actualY, lastX, lastY, width, height;
-        actualX = event.getX();
-        actualY = event.getY();
-        lastX = teladepintura.getLastX();
-        lastY = teladepintura.getLastY();
-        width = abs(lastX - actualX);
-        height = abs(lastY - actualY);
-        GraphicsContext context = teladepintura.getGraphicsContext2D();
+        double xFinal, yFinal, xInicial, yInicial, largura, altura;
 
-        context.setStroke(selecCor.getValue());
+        xFinal = event.getX();
+        yFinal = event.getY();
 
-        lastX = Math.min(actualX, lastX); //Faz a função do if
-        lastY = Math.min(actualY,lastY); //Faz a função do if
+        xInicial = telaPintura.getxInicial();
+        yInicial = telaPintura.getyInicial();
 
-        context.strokeRect(lastX, lastY, width, height);
+        largura = abs(xInicial - xFinal);
+        altura = abs(yInicial - yFinal);
+
+        GraphicsContext contexto = telaPintura.getGraphicsContext2D();
+        contexto.setStroke(selecCor.getValue());
+
+        xInicial = Math.min(xFinal, xInicial); //Faz a função do if
+        yInicial = Math.min(yFinal, yInicial); //Faz a função do if
+
+        contexto.strokeRect(xInicial, yInicial, largura, altura);
     }
 
     /**
-     * Metodo usado pelo botão butLimpar para limpar toda a teladepintura.
+     * Metodo usado pelo botão btnLimpar para limpar toda a telaPintura.
      */
     public void limpar(){
 
-        GraphicsContext context = teladepintura.getGraphicsContext2D();
-        context.clearRect(0,0,teladepintura.getWidth(), teladepintura.getHeight());
+        GraphicsContext context = telaPintura.getGraphicsContext2D();
+        context.clearRect(0,0, telaPintura.getWidth(), telaPintura.getHeight());
 
     }
 
