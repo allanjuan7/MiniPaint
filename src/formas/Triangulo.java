@@ -1,9 +1,8 @@
-package Formas;
+package formas;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
-import telas.TelaPintura;
 
 public class Triangulo extends Forma {
 

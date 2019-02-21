@@ -1,4 +1,4 @@
-package Formas;
+package formas;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
