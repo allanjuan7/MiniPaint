@@ -16,7 +16,7 @@ public class Entrada {
         this.nome = nome;
         this.valorPadrao = valorPadrao;
 
-        Label lbl = new Label("Nome");
+        Label lbl = new Label(nome);
         campo = new TextField();
         campo.setText(String.valueOf(valorPadrao));
 
@@ -29,6 +29,7 @@ public class Entrada {
     public int getValorCampo(){
         return Integer.parseInt(campo.getText());
     }
+
 
     public HBox getHBox(){
         return hBox;

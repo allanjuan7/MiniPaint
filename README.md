@@ -14,3 +14,4 @@ Allan, André, Nelson
 - Criar a classe Figura, com os métodos void editarFormaEm(int index), void addForma(Forma f), void deletarFormaEm(int index)
 - Implementar a classe figura na nossa GUI permitindo que o usuário execute suas rotinas
 - Implementar o carregamento e salvamento de arquivos
+- Adicionar as exceções e tratamento de erros ao longo do programa
