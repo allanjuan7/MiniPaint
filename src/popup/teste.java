@@ -12,12 +12,13 @@ public class teste extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        VBox vbox = new VBox();
+        VBox vbox = new VBox(10);
+
         vbox.getChildren().add(new Entrada("Altura", 200).getHBox());
         vbox.getChildren().add(new Entrada("Largura", 150).getHBox());
 
         Stage window = primaryStage;
-        Scene scene = new Scene(vbox, 400, 400);
+        Scene scene = new Scene(vbox, 800, 600);
         window.setScene(scene);
         window.show();
     }

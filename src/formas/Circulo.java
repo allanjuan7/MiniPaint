@@ -1,7 +1,14 @@
 package formas;
 
+import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import popup.Entrada;
 
 public class Circulo extends Forma{
 
@@ -25,13 +32,46 @@ public class Circulo extends Forma{
 
     // A FAZER
     public void editar(){
-        /* Esse método deve:
+        /* O cru do método já foi feito, porém ainda é necessário formatar a janela
+        * popup e configurar o tratamento de entradas. */
+        VBox vbox = new VBox(10);
 
-        1) Abrir uma janela PopUp que permitirá que o usuário edite a forma
+        // Adiciona as entradas, que são um label e uma textField que tem o valor padrão passado no construtor
+        Entrada entradaPosX = new Entrada("PosX", xInicial);
+        vbox.getChildren().add(entradaPosX.getHBox());
 
-        2) Apagar a forma velha e desenhar a nova forma com valores atualizados
+        Entrada entradaPosY = new Entrada("PosY", yInicial);
+        vbox.getChildren().add(entradaPosY.getHBox());
 
-        3) Atualizar os valores salvos em "Figura"
-         */
+        Entrada entradaRaio = new Entrada("Raio", raio);
+        vbox.getChildren().add(entradaRaio.getHBox());
+
+        ColorPicker colorPicker = new ColorPicker();
+        vbox.getChildren().add(colorPicker);
+
+        Button btnConfirmar = new Button("Confirmar");
+        btnConfirmar.setOnAction(e -> {
+            xInicial = entradaPosX.getValorCampo();
+            yInicial = entradaPosY.getValorCampo();
+            raio = entradaRaio.getValorCampo();
+            cor = colorPicker.getValue();
+
+            desenhar();
+        });
+
+        Stage stage = new Stage();
+
+        Button btnCancelar = new Button("Cancelar");
+        btnCancelar.setOnAction(e -> {
+            stage.close();
+        });
+
+        HBox hbox = new HBox();
+        hbox.getChildren().addAll(btnConfirmar, btnCancelar);
+
+        vbox.getChildren().add(hbox);
+
+        stage.setScene(new Scene(vbox, 800, 600));
+        stage.show();
     }
 }

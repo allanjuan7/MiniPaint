@@ -8,11 +8,11 @@ import javafx.scene.layout.HBox;
 public class Entrada {
 
     private String nome;
-    private int valorPadrao;
+    private double valorPadrao;
     private TextField campo;
     private HBox hBox;
 
-    public Entrada(String nome, int valorPadrao) {
+    public Entrada(String nome, double valorPadrao) {
         this.nome = nome;
         this.valorPadrao = valorPadrao;
 
