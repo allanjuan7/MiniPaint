@@ -1,15 +1,13 @@
 package formas;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Polygon;
 
 public class Triangulo extends Forma {
 
     private double base, altura;
 
-    public Triangulo(double xInicial, double yInicial, Color cor, GraphicsContext contexto, double base, double altura){
-        super(xInicial, yInicial, cor, contexto);
+    public Triangulo(double xInicial, double yInicial, Color cor, double base, double altura){
+        super(xInicial, yInicial, cor);
         this.base = base;
         this.altura = altura;
     }
@@ -25,17 +23,17 @@ public class Triangulo extends Forma {
     // AINDA NÃO FOI TESTADO
     public void desenhar(){
         // Cuidado - o Polygon pode causar ataques epilépticos aos espectadores mais sensíveis!
-        Polygon triangulo = new Polygon();
+        /*Polygon triangulo = new Polygon();
         double Ax, Ay, Bx, By, Cx, Cy;
 
         Ax = xInicial; Ay = yInicial;
         Bx = xInicial + base/2; By = yInicial + altura;
         Cx = xInicial - base/2; Cy = yInicial + altura;
 
-        /* Desenhamos o polígono passando como parâmetros
-        um vetor com as coordenadas x, outro com as respectivas coordenadas e y, e o número de vértices*/
+         Desenhamos o polígono passando como parâmetros
+        um vetor com as coordenadas x, outro com as respectivas coordenadas e y, e o número de vértices
         contexto.fillPolygon(new double [] {Ax, Bx, Cx},
-                new double [] {Ay, By, Cy}, 3);
+                new double [] {Ay, By, Cy}, 3);*/
     }
 
     // A FAZER

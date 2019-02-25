@@ -1,7 +1,6 @@
 package formas;
 
 import javafx.scene.Scene;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.HBox;
@@ -15,8 +14,8 @@ public class Circulo extends Forma{
     private double raio;
 
     // No caso do círculo, as coordenadas iniciais representam o seu centro.
-    public Circulo(double xInicial, double yInicial, Color cor, GraphicsContext contexto, double raio){
-        super(xInicial, yInicial, cor, contexto);
+    public Circulo(double xInicial, double yInicial, Color cor, double raio){
+        super(xInicial, yInicial, cor);
         this.raio = raio;
     }
 
@@ -26,8 +25,8 @@ public class Circulo extends Forma{
 
     // AINDA NÃO FOI TESTADO
     public void desenhar(){
-        contexto.setStroke(cor);
-        contexto.strokeOval(xInicial, yInicial, raio, raio);
+        //contexto.setStroke(cor);
+        //contexto.strokeOval(xInicial, yInicial, raio, raio);
     }
 
     // A FAZER

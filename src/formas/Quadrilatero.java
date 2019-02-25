@@ -1,14 +1,13 @@
 package formas;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class Quadrilatero extends Forma {
 
     private double base, altura;
 
-    public Quadrilatero(double xInicial, double yInicial, Color cor, GraphicsContext contexto, double base, double altura){
-        super(xInicial, yInicial, cor, contexto);
+    public Quadrilatero(double xInicial, double yInicial, Color cor, double base, double altura){
+        super(xInicial, yInicial, cor);
         this.base = base;
         this.altura = altura;
     }
@@ -24,8 +23,8 @@ public class Quadrilatero extends Forma {
     // AINDA NÃO FOI TESTADO
     public void desenhar(){
 
-        contexto.setStroke(cor);
-        contexto.strokeRect(xInicial, yInicial, base, altura);
+     //   contexto.setStroke(cor);
+     //   contexto.strokeRect(xInicial, yInicial, base, altura);
     }
 
     // A FAZER

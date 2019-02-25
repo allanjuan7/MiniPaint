@@ -1,18 +1,16 @@
 package formas;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public abstract class Forma {
 
     protected double xInicial, yInicial;
-    protected GraphicsContext contexto;
+    //protected GraphicsContext contexto;
     protected Color cor;
 
-    public Forma(double xInicial, double yInicial, Color cor, GraphicsContext contexto){
+    public Forma(double xInicial, double yInicial, Color cor){
         this.xInicial = xInicial;
         this.yInicial = yInicial;
-        this.contexto = contexto;
         this.cor = cor;
     }
 
