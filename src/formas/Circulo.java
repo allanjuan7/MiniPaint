@@ -14,8 +14,8 @@ public class Circulo extends Forma{
     private double raio;
 
     // No caso do círculo, as coordenadas iniciais representam o seu centro.
-    public Circulo(double xInicial, double yInicial, Color cor, double raio){
-        super(xInicial, yInicial, cor);
+    public Circulo(double xInicial, double yInicial, Color cor, double raio, int id){
+        super(xInicial, yInicial, cor, id);
         this.raio = raio;
     }
 
@@ -67,5 +67,9 @@ public class Circulo extends Forma{
 
         stage.setScene(new Scene(vbox, 800, 600));
         stage.show();
+    }
+
+    public String toString(){
+        return "Círculo " + id;
     }
 }

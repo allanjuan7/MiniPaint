@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import telas.TelaPintura?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="telas.TelaPrincipalController">
@@ -44,14 +46,9 @@
             <Button fx:id="ferramentaCirculo" minWidth="70.0" mnemonicParsing="false" onAction="#handle" prefWidth="55.0" text="C" />
             <Button fx:id="btnLimpar" minWidth="70.0" mnemonicParsing="false" onAction="#limpar" prefWidth="70.0" text="Limpar" />
             <ColorPicker fx:id="selecCor" minWidth="70.0" prefHeight="25.0" prefWidth="55.0" />
-            <RadioButton mnemonicParsing="false" text="Contorno" />
-            <RadioButton mnemonicParsing="false" text="Sólido" />
         </items>
       </ToolBar>
    </left>
-   <right>
-      <TreeView prefHeight="368.0" prefWidth="149.0" BorderPane.alignment="CENTER" />
-   </right>
    <center>
       <TelaPintura fx:id="telaPintura" height="558.0" onMousePressed="#onMousePressed" onMouseReleased="#onMouseReleased" width="586.0" BorderPane.alignment="CENTER">
          <cursor>
@@ -61,4 +58,28 @@
    <bottom>
       <Label fx:id="instrucoes" text="Selecione uma ferramenta à esquerda para começar a desenhar" BorderPane.alignment="CENTER" />
    </bottom>
+   <right>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Formas Desenhadas" textAlignment="CENTER">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets left="5.0" />
+               </VBox.margin>
+            </Label>
+            <ListView fx:id="formas" minWidth="148.0" prefHeight="597.0" prefWidth="148.0" />
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Button fx:id="btnEditar" mnemonicParsing="false" text="Editar" />
+                  <Button fx:id="btnDeletar" mnemonicParsing="false" text="Deletar" />
+               </children>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </right>
 </BorderPane>

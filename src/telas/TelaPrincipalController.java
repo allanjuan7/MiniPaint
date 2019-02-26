@@ -1,16 +1,11 @@
 package telas;
 
-import formas.Circulo;
-import formas.Figura;
-import formas.Quadrilatero;
-import formas.Triangulo;
+import formas.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import static java.lang.Math.abs;
@@ -18,9 +13,14 @@ import static java.lang.Math.sqrt;
 
 public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
+    private int nQuadrilateros, nTriangulos, nCirculos;
+
     private Figura figura = new Figura();
 
     private boolean quadrilateroSelecionado, circuloSelecionado, trianguloSelecionado;
+
+    @FXML
+    private ListView<Forma> formas;
 
     @FXML
     private Label instrucoes;
@@ -36,6 +36,12 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
     @FXML
     private Button btnLimpar;
+
+    @FXML
+    private Button btnEditar;
+
+    @FXML
+    private Button btnDeletar;
 
     @FXML
     private ColorPicker selecCor;
@@ -76,28 +82,40 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         xInicial = Math.min(xFinal, xInicial);
         yInicial = Math.min(yFinal, yInicial);
 
+        Forma f = null;
+
         if (quadrilateroSelecionado) {
-            Quadrilatero q = new Quadrilatero(xInicial, yInicial, selecCor.getValue(), largura, altura);
-            telaPintura.desenhar(q);
-            figura.addForma(q);
+            f = new Quadrilatero(xInicial, yInicial, selecCor.getValue(), largura, altura, ++nQuadrilateros);
+            //telaPintura.desenhar(q);
+            //figura.addForma(q);
 
         } else if (trianguloSelecionado) {
-            Triangulo t = new Triangulo(xInicial, yInicial, selecCor.getValue(), largura, altura);
-            telaPintura.desenhar(t);
-            figura.addForma(t);
+            f = new Triangulo(xInicial, yInicial, selecCor.getValue(), largura, altura, ++nTriangulos);
+            //telaPintura.desenhar(t);
+            //figura.addForma(t);
 
         } else if (circuloSelecionado) {
             double raio = sqrt((largura * largura) + (altura * altura) );
-            Circulo c = new Circulo(xInicial, yInicial, selecCor.getValue(), raio);
-            telaPintura.desenhar(c);
-            figura.addForma(c);
+            f = new Circulo(xInicial, yInicial, selecCor.getValue(), raio, ++nCirculos);
+            //telaPintura.desenhar(c);
+            //figura.addForma(c);
         }
+
+        telaPintura.desenhar(f);
+        figura.addForma(f);
+        formas.getItems().add(f);
+
+        // Não consegui colocar este comando em outro lugar... :(
+        formas.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
     }
 
     public void limpar(){
 
         GraphicsContext context = telaPintura.getGraphicsContext2D();
         context.clearRect(0,0, telaPintura.getWidth(), telaPintura.getHeight());
+
+        nQuadrilateros = 0; nTriangulos = 0; nCirculos = 0;
     }
 
     @Override

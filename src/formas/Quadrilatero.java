@@ -6,8 +6,8 @@ public class Quadrilatero extends Forma {
 
     private double base, altura;
 
-    public Quadrilatero(double xInicial, double yInicial, Color cor, double base, double altura){
-        super(xInicial, yInicial, cor);
+    public Quadrilatero(double xInicial, double yInicial, Color cor, double base, double altura, int id){
+        super(xInicial, yInicial, cor, id);
         this.base = base;
         this.altura = altura;
     }
@@ -30,5 +30,9 @@ public class Quadrilatero extends Forma {
 
         3) Atualizar os valores salvos em "Figura"
          */
+    }
+
+    public String toString(){
+        return "Quadrilátero " + id;
     }
 }
