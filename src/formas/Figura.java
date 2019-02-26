@@ -1,10 +1,13 @@
 package formas;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Figura {
 
-    private ArrayList<Forma> formas;
+    /* É importante observar se instanciaremos "formas" dessa maneira
+    * ou com polimorfismo, como o professor sugeriu, deixando o programa mais generalizado.*/
+    private List<Forma> formas;
 
     public Figura(){
         formas = new ArrayList<>();

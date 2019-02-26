@@ -20,13 +20,6 @@ public class Quadrilatero extends Forma {
         return altura;
     }
 
-    // AINDA NÃO FOI TESTADO
-    public void desenhar(){
-
-     //   contexto.setStroke(cor);
-     //   contexto.strokeRect(xInicial, yInicial, base, altura);
-    }
-
     // A FAZER
     public void editar(){
         /* Esse método deve:

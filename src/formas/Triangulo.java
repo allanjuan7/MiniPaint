@@ -20,22 +20,6 @@ public class Triangulo extends Forma {
         return altura;
     }
 
-    // AINDA NÃO FOI TESTADO
-    public void desenhar(){
-        // Cuidado - o Polygon pode causar ataques epilépticos aos espectadores mais sensíveis!
-        /*Polygon triangulo = new Polygon();
-        double Ax, Ay, Bx, By, Cx, Cy;
-
-        Ax = xInicial; Ay = yInicial;
-        Bx = xInicial + base/2; By = yInicial + altura;
-        Cx = xInicial - base/2; Cy = yInicial + altura;
-
-         Desenhamos o polígono passando como parâmetros
-        um vetor com as coordenadas x, outro com as respectivas coordenadas e y, e o número de vértices
-        contexto.fillPolygon(new double [] {Ax, Bx, Cx},
-                new double [] {Ay, By, Cy}, 3);*/
-    }
-
     // A FAZER
     public void editar(){
         /* Esse método deve:

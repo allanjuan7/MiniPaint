@@ -9,7 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Polygon;
 
 /**
- * Extensão da classe Canvas que tem a capacidade de guardar a ultima posição clicada.
+ * TelaPintura é uma subclasse de Canvas que guarda a ultima posição clicada.
  *
  */
 public class TelaPintura extends Canvas {
@@ -36,26 +36,29 @@ public class TelaPintura extends Canvas {
         GraphicsContext contexto = getGraphicsContext2D();
 
         if (f instanceof Quadrilatero){
+
             Quadrilatero quadrilatero = (Quadrilatero) f;
             contexto.setStroke(quadrilatero.getCor());
             contexto.strokeRect(quadrilatero.getxInicial(), quadrilatero.getyInicial(), quadrilatero.getBase(), quadrilatero.getAltura());
+
         } else if (f instanceof Triangulo){
 
             Triangulo triangulo = (Triangulo) f;
             contexto.setFill(triangulo.getCor());
-            Polygon poligon = new Polygon();
+
             double Ax, Ay, Bx, By, Cx, Cy;
+
             Ax = triangulo.getxInicial();
             Ay = triangulo.getyInicial();
             Bx = Ax + triangulo.getBase()/2;
             By = Ay + triangulo.getAltura();
             Cx = Ax - triangulo.getBase()/2; Cy = Ay + triangulo.getAltura();
 
-        /* Desenhamos o polígono passando como parâmetros
-        um vetor com as coordenadas x, outro com as respectivas coordenadas e y, e o número de vértices*/
             contexto.fillPolygon(new double [] {Ax, Bx, Cx},
                     new double [] {Ay, By, Cy}, 3);
+
         } else if (f instanceof Circulo){
+
             Circulo circulo = (Circulo) f;
             contexto.setStroke(circulo.getCor());
             contexto.strokeOval(circulo.getxInicial(), circulo.getyInicial(), circulo.getRaio(), circulo.getRaio());

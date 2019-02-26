@@ -1,6 +1,7 @@
 package telas;
 
 import formas.Circulo;
+import formas.Figura;
 import formas.Quadrilatero;
 import formas.Triangulo;
 import javafx.event.ActionEvent;
@@ -16,6 +17,8 @@ import static java.lang.Math.abs;
 import static java.lang.Math.sqrt;
 
 public class TelaPrincipalController implements EventHandler<ActionEvent> {
+
+    private Figura figura = new Figura();
 
     private boolean quadrilateroSelecionado, circuloSelecionado, trianguloSelecionado;
 
@@ -39,7 +42,6 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
     @FXML
     private TelaPintura telaPintura;
-
 
     /**
      * Metodo usado na TelaPintura para guardar a posição X e Y em que a tela foi clicada.
@@ -71,52 +73,52 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         largura = abs(xInicial - xFinal);
         altura = abs(yInicial - yFinal);
 
-        /*GraphicsContext contexto = telaPintura.getGraphicsContext2D();
-        contexto.setStroke(selecCor.getValue());*/
-
-        xInicial = Math.min(xFinal, xInicial); //Faz a função do if
-        yInicial = Math.min(yFinal, yInicial); //Faz a função do if
+        xInicial = Math.min(xFinal, xInicial);
+        yInicial = Math.min(yFinal, yInicial);
 
         if (quadrilateroSelecionado) {
-            //contexto.strokeRect(xInicial, yInicial, largura, altura);
             Quadrilatero q = new Quadrilatero(xInicial, yInicial, selecCor.getValue(), largura, altura);
             telaPintura.desenhar(q);
+            figura.addForma(q);
+
         } else if (trianguloSelecionado) {
             Triangulo t = new Triangulo(xInicial, yInicial, selecCor.getValue(), largura, altura);
             telaPintura.desenhar(t);
+            figura.addForma(t);
+
         } else if (circuloSelecionado) {
             double raio = sqrt((largura * largura) + (altura * altura) );
             Circulo c = new Circulo(xInicial, yInicial, selecCor.getValue(), raio);
             telaPintura.desenhar(c);
+            figura.addForma(c);
         }
     }
 
-    /**
-     * Metodo usado pelo botão btnLimpar para limpar toda a telaPintura.
-     */
     public void limpar(){
 
         GraphicsContext context = telaPintura.getGraphicsContext2D();
         context.clearRect(0,0, telaPintura.getWidth(), telaPintura.getHeight());
-
     }
 
     @Override
     public void handle(ActionEvent event){
-        instrucoes.setText("Clique no Canvas para determinar a posição da figura.");
+        instrucoes.setText("Clique e arraste no Canvas para começar a desenhar.");
 
-        if (event.getSource() == ferramentaCirculo){
-            circuloSelecionado = true;
-            quadrilateroSelecionado = false;
-            trianguloSelecionado = false;
-        } else if (event.getSource() == ferramentaQuadrilatero){
+        if (event.getSource() == ferramentaQuadrilatero){
             quadrilateroSelecionado = true;
-            circuloSelecionado = false;
             trianguloSelecionado = false;
-        } else if (event.getSource() == ferramentaTriangulo) {
-            trianguloSelecionado = true;
-            quadrilateroSelecionado = false;
             circuloSelecionado = false;
+
+        } else if (event.getSource() == ferramentaTriangulo){
+            quadrilateroSelecionado = false;
+            trianguloSelecionado =  true;
+            circuloSelecionado = false;
+
+        } else if (event.getSource() == ferramentaCirculo) {
+            quadrilateroSelecionado = false;
+            trianguloSelecionado = false;
+            circuloSelecionado =  true;
+
         }
     }
 }

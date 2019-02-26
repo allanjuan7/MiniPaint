@@ -23,16 +23,13 @@ public class Circulo extends Forma{
         return raio;
     }
 
-    // AINDA NÃO FOI TESTADO
-    public void desenhar(){
-        //contexto.setStroke(cor);
-        //contexto.strokeOval(xInicial, yInicial, raio, raio);
-    }
-
     // A FAZER
     public void editar(){
         /* O cru do método já foi feito, porém ainda é necessário formatar a janela
-        * popup e configurar o tratamento de entradas. */
+        * popup e configurar o tratamento de entradas.
+        *
+        * O método editar está servindo apenas para alterar os valores da nossa Forma.
+        * Com a nova implementação, a responsabilidade de desenhá-la será passada para a TelaPintura.*/
         VBox vbox = new VBox(10);
 
         // Adiciona as entradas, que são um label e uma textField que tem o valor padrão passado no construtor
@@ -54,8 +51,6 @@ public class Circulo extends Forma{
             yInicial = entradaPosY.getValorCampo();
             raio = entradaRaio.getValorCampo();
             cor = colorPicker.getValue();
-
-            desenhar();
         });
 
         Stage stage = new Stage();
