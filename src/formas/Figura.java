@@ -17,6 +17,9 @@ public class Figura {
         formas.add(f);
     }
 
+    public void limpar(){
+        formas.clear();
+    }
     public void editarFormaEm(int index){
         formas.get(index).editar();
 
@@ -24,15 +27,11 @@ public class Figura {
         em caso de acesso inválido no array */
     }
 
+    public List<Forma> getFormas() {
+        return formas;
+    }
+
     public void deletarFormaEm(int index){
-        /*
-        Antes de implementar essa Forma, é preciso definir
-        se utilizaremos um sistema de camadas.
-
-        Se sim, basta excluir a camada referente à forma escolhida.
-
-        Se não, será preciso limpar o quadro e desenhar novamente todas as
-        formas, excetuando a forma excluída.
-         */
+        formas.remove(index);
     }
 }

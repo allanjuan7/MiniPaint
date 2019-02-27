@@ -73,7 +73,7 @@
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
                   <Button fx:id="btnEditar" mnemonicParsing="false" text="Editar" />
-                  <Button fx:id="btnDeletar" mnemonicParsing="false" text="Deletar" />
+                  <Button fx:id="btnDeletar" mnemonicParsing="false" onAction="#btnDeletarClicado" text="Deletar" />
                </children>
                <padding>
                   <Insets left="5.0" />

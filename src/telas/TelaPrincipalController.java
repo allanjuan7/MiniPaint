@@ -86,24 +86,20 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
         if (quadrilateroSelecionado) {
             f = new Quadrilatero(xInicial, yInicial, selecCor.getValue(), largura, altura, ++nQuadrilateros);
-            //telaPintura.desenhar(q);
-            //figura.addForma(q);
 
         } else if (trianguloSelecionado) {
             f = new Triangulo(xInicial, yInicial, selecCor.getValue(), largura, altura, ++nTriangulos);
-            //telaPintura.desenhar(t);
-            //figura.addForma(t);
 
         } else if (circuloSelecionado) {
             double raio = sqrt((largura * largura) + (altura * altura) );
             f = new Circulo(xInicial, yInicial, selecCor.getValue(), raio, ++nCirculos);
-            //telaPintura.desenhar(c);
-            //figura.addForma(c);
         }
 
-        telaPintura.desenhar(f);
-        figura.addForma(f);
-        formas.getItems().add(f);
+        if (f != null){
+            telaPintura.desenhar(f);
+            figura.addForma(f);
+            formas.getItems().add(f);
+        }
 
         // Não consegui colocar este comando em outro lugar... :(
         formas.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -116,6 +112,7 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         context.clearRect(0,0, telaPintura.getWidth(), telaPintura.getHeight());
 
         nQuadrilateros = 0; nTriangulos = 0; nCirculos = 0;
+        figura.limpar(); formas.getItems().clear();
     }
 
     @Override
@@ -138,5 +135,20 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
             circuloSelecionado =  true;
 
         }
+    }
+
+    public void btnDeletarClicado(){
+
+        Integer index = formas.getSelectionModel().getSelectedIndex();
+        figura.deletarFormaEm(index); formas.getItems().clear();
+
+        telaPintura.getGraphicsContext2D().clearRect(0,0, telaPintura.getWidth(), telaPintura.getHeight());
+
+        for (Forma f : figura.getFormas()){
+            formas.getItems().add(f);
+            telaPintura.desenhar(f);
+        }
+
+
     }
 }
