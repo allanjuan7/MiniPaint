@@ -12,24 +12,20 @@ public class Quadrilatero extends Forma {
         this.altura = altura;
     }
 
+    public void setBase(double base) {
+        this.base = base;
+    }
+
     public double getBase() {
         return base;
     }
 
-    public double getAltura() {
-        return altura;
+    public void setAltura(double altura) {
+        this.altura = altura;
     }
 
-    // A FAZER
-    public void editar(){
-        /* Esse método deve:
-
-        1) Abrir uma janela PopUp que permitirá que o usuário edite a forma
-
-        2) Apagar a forma velha e desenhar a nova forma com valores atualizados
-
-        3) Atualizar os valores salvos em "Figura"
-         */
+    public double getAltura() {
+        return altura;
     }
 
     public String toString(){

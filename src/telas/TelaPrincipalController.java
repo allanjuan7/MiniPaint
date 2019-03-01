@@ -4,9 +4,18 @@ import formas.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import popup.Entrada;
+
+import javax.swing.*;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.sqrt;
@@ -17,10 +26,10 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
     private Figura figura = new Figura();
 
-    private boolean quadrilateroSelecionado, circuloSelecionado, trianguloSelecionado;
+    private String figuraSelecionada;
 
     @FXML
-    private ListView<Forma> formas;
+    private ListView<Forma> formasListView;
 
     @FXML
     private Label instrucoes;
@@ -49,22 +58,10 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
     @FXML
     private TelaPintura telaPintura;
 
-    /**
-     * Metodo usado na TelaPintura para guardar a posição X e Y em que a tela foi clicada.
-     *
-     * @param event Evento do botão do mouse ser pressionado na tela.
-     */
     public void onMousePressed(MouseEvent event) {
         telaPintura.setxInicial(event.getX());
         telaPintura.setyInicial(event.getY());
     }
-
-    /**
-     * Metodo usado na TelaPintura para desenhar na tela assim que o mouse para de ser arrastado.
-     * Usa a cor selecionada pelo ColorPicker selecCor.
-     *
-     * @param event Evento do botão do mouse ser solto da tela.
-     */
 
     public void onMouseReleased(MouseEvent event){
 
@@ -82,37 +79,28 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         xInicial = Math.min(xFinal, xInicial);
         yInicial = Math.min(yFinal, yInicial);
 
-        Forma f = null;
+        Forma novaForma = null;
 
-        if (quadrilateroSelecionado) {
-            f = new Quadrilatero(xInicial, yInicial, selecCor.getValue(), largura, altura, ++nQuadrilateros);
+        if (figuraSelecionada == "Quadrilatero") {
+            novaForma = new Quadrilatero(xInicial, yInicial, selecCor.getValue(), largura, altura, ++nQuadrilateros);
 
-        } else if (trianguloSelecionado) {
-            f = new Triangulo(xInicial, yInicial, selecCor.getValue(), largura, altura, ++nTriangulos);
+        } else if (figuraSelecionada == "Triangulo") {
+            novaForma = new Triangulo(xInicial, yInicial, selecCor.getValue(), largura, altura, ++nTriangulos);
 
-        } else if (circuloSelecionado) {
+        } else if (figuraSelecionada == "Circulo") {
             double raio = sqrt((largura * largura) + (altura * altura) );
-            f = new Circulo(xInicial, yInicial, selecCor.getValue(), raio, ++nCirculos);
+            novaForma = new Circulo(xInicial, yInicial, selecCor.getValue(), raio, ++nCirculos);
         }
 
-        if (f != null){
-            telaPintura.desenhar(f);
-            figura.addForma(f);
-            formas.getItems().add(f);
+        if (novaForma != null){
+            telaPintura.desenhar(novaForma);
+            figura.addForma(novaForma);
+            formasListView.getItems().add(novaForma);
         }
 
-        // Não consegui colocar este comando em outro lugar... :(
-        formas.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        // Qual o lugar certo para por esse método?
+        formasListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-    }
-
-    public void limpar(){
-
-        GraphicsContext context = telaPintura.getGraphicsContext2D();
-        context.clearRect(0,0, telaPintura.getWidth(), telaPintura.getHeight());
-
-        nQuadrilateros = 0; nTriangulos = 0; nCirculos = 0;
-        figura.limpar(); formas.getItems().clear();
     }
 
     @Override
@@ -120,35 +108,154 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         instrucoes.setText("Clique e arraste no Canvas para começar a desenhar.");
 
         if (event.getSource() == ferramentaQuadrilatero){
-            quadrilateroSelecionado = true;
-            trianguloSelecionado = false;
-            circuloSelecionado = false;
+            figuraSelecionada = "Quadrilatero";
 
         } else if (event.getSource() == ferramentaTriangulo){
-            quadrilateroSelecionado = false;
-            trianguloSelecionado =  true;
-            circuloSelecionado = false;
+            figuraSelecionada = "Triangulo";
 
         } else if (event.getSource() == ferramentaCirculo) {
-            quadrilateroSelecionado = false;
-            trianguloSelecionado = false;
-            circuloSelecionado =  true;
+            figuraSelecionada = "Circulo";
+        }
+    }
 
+    // Apenas apaga o Canvas. É chamado em outros métodos.
+    public void apagarQuadro(){
+        GraphicsContext contextoGrafico = telaPintura.getGraphicsContext2D();
+        contextoGrafico.clearRect(0,0, telaPintura.getWidth(), telaPintura.getHeight());
+    }
+
+    // Apaga o Canvas e reinicia as variáveis, é chamado pelo botão LIMPAR
+    public void apagarTudo(){
+        nQuadrilateros = 0; nTriangulos = 0; nCirculos = 0;
+        figura.limpar(); formasListView.getItems().clear();
+        apagarQuadro();
+    }
+
+    public void atualizarListViewERedesenhar(){
+
+        formasListView.getItems().clear();
+
+        for (Forma f : figura.getFormas()){
+            formasListView.getItems().add(f);
+            telaPintura.desenhar(f);
         }
     }
 
     public void btnDeletarClicado(){
 
-        Integer index = formas.getSelectionModel().getSelectedIndex();
-        figura.deletarFormaEm(index); formas.getItems().clear();
+        Integer index = formasListView.getSelectionModel().getSelectedIndex();
+        figura.deletarFormaEm(index); formasListView.getItems().clear();
 
-        telaPintura.getGraphicsContext2D().clearRect(0,0, telaPintura.getWidth(), telaPintura.getHeight());
+        apagarQuadro();
+        atualizarListViewERedesenhar();
+    }
 
-        for (Forma f : figura.getFormas()){
-            formas.getItems().add(f);
-            telaPintura.desenhar(f);
+    public void btnEditarClicado(){
+
+        Forma formaSelecionada = formasListView.getSelectionModel().getSelectedItem();
+
+        if (formaSelecionada != null){
+
+            VBox vBox = new VBox(10);
+            vBox.setPadding(new Insets(10, 10, 10, 10));
+            vBox.setAlignment(Pos.TOP_CENTER);
+
+            Stage stage = new Stage();
+
+            Entrada entradaPosX = new Entrada("PosX", formaSelecionada.getxInicial());
+            Entrada entradaPosY = new Entrada("PosY", formaSelecionada.getyInicial());
+
+            ColorPicker colorPicker = new ColorPicker();
+            colorPicker.setValue(formaSelecionada.getCor());
+            colorPicker.setMinWidth(225);
+
+            Button btnConfirmar = new Button("Confirmar");
+            Button btnCancelar = new Button("Cancelar");
+
+            btnCancelar.setOnAction(e -> {
+                stage.close();
+            });
+
+            vBox.getChildren().addAll(entradaPosX.getHBox(), entradaPosY.getHBox());
+
+            if (formaSelecionada instanceof Circulo){
+
+                Circulo circulo = (Circulo) formaSelecionada;
+                Entrada entradaRaio = new Entrada("Raio", circulo.getRaio());
+
+                vBox.getChildren().addAll(entradaRaio.getHBox(), colorPicker);
+
+                btnConfirmar.setOnAction(e -> {
+
+                    circulo.setxInicial(entradaPosX.getValorCampo());
+                    circulo.setyInicial(entradaPosY.getValorCampo());
+                    circulo.setRaio(entradaRaio.getValorCampo());
+                    circulo.setCor(colorPicker.getValue());
+
+                    stage.close();
+                    apagarQuadro();
+                    atualizarListViewERedesenhar();
+                });
+            }
+
+            if (formaSelecionada instanceof Quadrilatero){
+
+                Quadrilatero quadrilatero = (Quadrilatero) formaSelecionada;
+
+                Entrada entradaBase = new Entrada("Base", quadrilatero.getBase());
+                Entrada entradaAltura = new Entrada("Altura", quadrilatero.getAltura());
+
+                vBox.getChildren().addAll(entradaBase.getHBox(), entradaAltura.getHBox(), colorPicker);
+
+                btnConfirmar.setOnAction(e -> {
+
+                    quadrilatero.setxInicial(entradaPosX.getValorCampo());
+                    quadrilatero.setyInicial(entradaPosY.getValorCampo());
+                    quadrilatero.setBase(entradaBase.getValorCampo());
+                    quadrilatero.setAltura(entradaAltura.getValorCampo());
+                    quadrilatero.setCor(colorPicker.getValue());
+
+                    stage.close();
+                    apagarQuadro();
+                    atualizarListViewERedesenhar();
+                });
+            }
+
+            if (formaSelecionada instanceof Triangulo){
+
+                Triangulo triangulo = (Triangulo) formaSelecionada;
+
+                Entrada entradaBase = new Entrada("Base", triangulo.getBase());
+                Entrada entradaAltura = new Entrada("Altura", triangulo.getAltura());
+
+                vBox.getChildren().addAll(entradaBase.getHBox(), entradaAltura.getHBox(), colorPicker);
+
+                btnConfirmar.setOnAction(e -> {
+
+                    triangulo.setxInicial(entradaPosX.getValorCampo());
+                    triangulo.setyInicial(entradaPosY.getValorCampo());
+                    triangulo.setBase(entradaBase.getValorCampo());
+                    triangulo.setAltura(entradaAltura.getValorCampo());
+                    triangulo.setCor(colorPicker.getValue());
+
+                    stage.close();
+                    apagarQuadro();
+                    atualizarListViewERedesenhar();
+                });
+
+
+            }
+
+            HBox hBoxInferior = new HBox(10);
+            hBoxInferior.getChildren().addAll(btnConfirmar, btnCancelar);
+            hBoxInferior.setAlignment(Pos.CENTER);
+
+            vBox.getChildren().addAll(hBoxInferior);
+
+            Scene scene = new Scene(vBox, 400, 300);
+            stage.setScene(scene);
+            stage.show();
         }
-
 
     }
 }

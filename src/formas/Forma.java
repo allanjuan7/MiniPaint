@@ -15,18 +15,32 @@ public abstract class Forma {
         this.id = id;
     }
 
+
+
+    public void setxInicial(double xInicial) {
+        this.xInicial = xInicial;
+    }
+
     public double getxInicial() {
         return xInicial;
+    }
+
+    public void setyInicial(double yInicial) {
+        this.yInicial = yInicial;
     }
 
     public double getyInicial() {
         return yInicial;
     }
 
+    public void setCor(Color cor) {
+        this.cor = cor;
+    }
+
     public Color getCor() {
         return cor;
     }
 
-    public abstract void editar();
+    public abstract String toString();
 
 }

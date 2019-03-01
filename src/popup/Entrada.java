@@ -20,14 +20,15 @@ public class Entrada {
         campo = new TextField();
         campo.setText(String.valueOf(valorPadrao));
 
+
         hBox = new HBox(10);
         hBox.setAlignment(Pos.CENTER);
 
         hBox.getChildren().addAll(lbl, campo);
     }
 
-    public int getValorCampo(){
-        return Integer.parseInt(campo.getText());
+    public double getValorCampo(){
+        return Double.parseDouble(campo.getText());
     }
 
 
