@@ -39,7 +39,7 @@
       </MenuBar>
    </top>
    <left>
-      <ToolBar minWidth="105.0" orientation="VERTICAL" prefHeight="391.0" prefWidth="70.0" BorderPane.alignment="CENTER">
+      <ToolBar orientation="VERTICAL" prefHeight="391.0" prefWidth="70.0" BorderPane.alignment="CENTER">
         <items>
             <Button fx:id="ferramentaTriangulo" minWidth="70.0" mnemonicParsing="false" onAction="#handle" prefWidth="55.0" text="T" />
           <Button fx:id="ferramentaQuadrilatero" minWidth="70.0" mnemonicParsing="false" onAction="#handle" prefWidth="55.0" text="Q" />

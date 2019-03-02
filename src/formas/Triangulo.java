@@ -27,7 +27,7 @@ public class Triangulo extends Forma {
     public double getAltura() {
         return altura;
     }
-    
+
     public String toString(){
         return "Triângulo " + id;
     }

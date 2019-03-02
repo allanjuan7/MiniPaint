@@ -38,8 +38,8 @@ public class TelaPintura extends Canvas {
         if (f instanceof Quadrilatero){
 
             Quadrilatero quadrilatero = (Quadrilatero) f;
-            contexto.setStroke(quadrilatero.getCor());
-            contexto.strokeRect(quadrilatero.getxInicial(), quadrilatero.getyInicial(), quadrilatero.getBase(), quadrilatero.getAltura());
+            contexto.setFill(quadrilatero.getCor());
+            contexto.fillRect(quadrilatero.getxInicial(), quadrilatero.getyInicial(), quadrilatero.getBase(), quadrilatero.getAltura());
 
         } else if (f instanceof Triangulo){
 
@@ -60,8 +60,8 @@ public class TelaPintura extends Canvas {
         } else if (f instanceof Circulo){
 
             Circulo circulo = (Circulo) f;
-            contexto.setStroke(circulo.getCor());
-            contexto.strokeOval(circulo.getxInicial(), circulo.getyInicial(), circulo.getRaio(), circulo.getRaio());
+            contexto.setFill(circulo.getCor());
+            contexto.fillOval(circulo.getxInicial(), circulo.getyInicial(), circulo.getRaio(), circulo.getRaio());
         }
     }
 }

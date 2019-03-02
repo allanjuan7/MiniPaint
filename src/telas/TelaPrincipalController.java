@@ -1,5 +1,6 @@
 package telas;
 
+import Excecoes.ValorDeEntradaNegativoException;
 import formas.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import popup.Entrada;
+import popup.Mensagem;
 
 import javax.swing.*;
 
@@ -150,7 +152,15 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         atualizarListViewERedesenhar();
     }
 
-    public void btnEditarClicado(){
+    public static void validarEntradas(Entrada entradas[]) throws ValorDeEntradaNegativoException{
+        for (Entrada e : entradas){
+            if (e.getValorCampo() < 0){
+                throw new ValorDeEntradaNegativoException();
+            }
+        }
+
+    }
+    public void btnEditarClicado() throws ValorDeEntradaNegativoException {
 
         Forma formaSelecionada = formasListView.getSelectionModel().getSelectedItem();
 
@@ -186,15 +196,24 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
                 vBox.getChildren().addAll(entradaRaio.getHBox(), colorPicker);
 
                 btnConfirmar.setOnAction(e -> {
+                    try {
 
-                    circulo.setxInicial(entradaPosX.getValorCampo());
-                    circulo.setyInicial(entradaPosY.getValorCampo());
-                    circulo.setRaio(entradaRaio.getValorCampo());
-                    circulo.setCor(colorPicker.getValue());
+                        validarEntradas(new Entrada[] {entradaPosX, entradaPosY, entradaRaio});
 
-                    stage.close();
-                    apagarQuadro();
-                    atualizarListViewERedesenhar();
+                        circulo.setxInicial(entradaPosX.getValorCampo());
+                        circulo.setyInicial(entradaPosY.getValorCampo());
+                        circulo.setRaio(entradaRaio.getValorCampo());
+                        circulo.setCor(colorPicker.getValue());
+
+                        stage.close();
+                        apagarQuadro();
+                        atualizarListViewERedesenhar();
+
+                    } catch (ValorDeEntradaNegativoException ex){
+
+                        Mensagem mensagemDeErro = new Mensagem("Valor de entrada negativo. Insira um valor válido", 100, 500);
+                        mensagemDeErro.mostrar();
+                    }
                 });
             }
 
@@ -209,15 +228,23 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
                 btnConfirmar.setOnAction(e -> {
 
-                    quadrilatero.setxInicial(entradaPosX.getValorCampo());
-                    quadrilatero.setyInicial(entradaPosY.getValorCampo());
-                    quadrilatero.setBase(entradaBase.getValorCampo());
-                    quadrilatero.setAltura(entradaAltura.getValorCampo());
-                    quadrilatero.setCor(colorPicker.getValue());
+                    try{
 
-                    stage.close();
-                    apagarQuadro();
-                    atualizarListViewERedesenhar();
+                        validarEntradas(new Entrada[] {entradaPosX, entradaPosY, entradaBase, entradaAltura});
+                        quadrilatero.setxInicial(entradaPosX.getValorCampo());
+                        quadrilatero.setyInicial(entradaPosY.getValorCampo());
+                        quadrilatero.setBase(entradaBase.getValorCampo());
+                        quadrilatero.setAltura(entradaAltura.getValorCampo());
+                        quadrilatero.setCor(colorPicker.getValue());
+
+                        stage.close(); apagarQuadro();
+                        atualizarListViewERedesenhar();
+
+                    } catch(ValorDeEntradaNegativoException ex){
+
+                        Mensagem mensagemDeErro = new Mensagem("Valor de entrada negativo. Insira um valor válido", 100, 500);
+                        mensagemDeErro.mostrar();
+                    }
                 });
             }
 
@@ -231,16 +258,23 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
                 vBox.getChildren().addAll(entradaBase.getHBox(), entradaAltura.getHBox(), colorPicker);
 
                 btnConfirmar.setOnAction(e -> {
+                    try{
+                        validarEntradas(new Entrada[] {entradaPosX, entradaPosY, entradaBase, entradaAltura});
 
-                    triangulo.setxInicial(entradaPosX.getValorCampo());
-                    triangulo.setyInicial(entradaPosY.getValorCampo());
-                    triangulo.setBase(entradaBase.getValorCampo());
-                    triangulo.setAltura(entradaAltura.getValorCampo());
-                    triangulo.setCor(colorPicker.getValue());
+                        triangulo.setxInicial(entradaPosX.getValorCampo());
+                        triangulo.setyInicial(entradaPosY.getValorCampo());
+                        triangulo.setBase(entradaBase.getValorCampo());
+                        triangulo.setAltura(entradaAltura.getValorCampo());
+                        triangulo.setCor(colorPicker.getValue());
 
-                    stage.close();
-                    apagarQuadro();
-                    atualizarListViewERedesenhar();
+                        stage.close(); apagarQuadro();
+                        atualizarListViewERedesenhar();
+                    } catch(ValorDeEntradaNegativoException ex){
+
+                        Mensagem mensagemDeErro = new Mensagem("Valor de entrada negativo. Insira um valor válido", 100, 500);
+                        mensagemDeErro.mostrar();
+                    }
+
                 });
 
 
