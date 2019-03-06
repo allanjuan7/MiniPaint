@@ -1,22 +1,24 @@
 package formas;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Figura {
+public class Figura implements Serializable {
 
     private List<Forma> formas;
+    private String nome;
 
     public Figura(){
         formas = new ArrayList<>();
     }
 
-    public void addForma(Forma f){
-        formas.add(f);
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public void limpar(){
-        formas.clear();
+    public void addForma(Forma f){
+        formas.add(f);
     }
 
     public List<Forma> getFormas() {
@@ -25,5 +27,15 @@ public class Figura {
 
     public void deletarFormaEm(int index){
         formas.remove(index);
+    }
+
+    public void limpar(){
+        formas.clear();
+    }
+
+    public void incorporarFiguraCarregada(Figura figuraCarregada){
+        for (Forma forma : figuraCarregada.getFormas()){
+            this.addForma(forma);
+        }
     }
 }

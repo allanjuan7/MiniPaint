@@ -18,14 +18,16 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="telas.TelaPrincipalController">
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
+      <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="Arquivo">
+          <Menu fx:id="menuArquivo" mnemonicParsing="false" text="Arquivo">
             <items>
               <MenuItem mnemonicParsing="false" text="Novo..." />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Salvar" />
+                  <MenuItem fx:id="menuItemSalvar" mnemonicParsing="false" onAction="#menuItemSalvarClicado" text="Salvar" />
                   <MenuItem mnemonicParsing="false" text="Salvar como... " />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="menuItemAbrir" mnemonicParsing="false" onAction="#menuItemAbrirClicado" text="Abrir" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Editar">

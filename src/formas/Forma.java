@@ -1,11 +1,12 @@
 package formas;
-
 import javafx.scene.paint.Color;
+import java.io.Serializable;
 
-public abstract class Forma {
+public abstract class Forma implements Serializable {
 
     protected double xInicial, yInicial;
-    protected Color cor;
+    transient protected Color cor;
+    protected String rgbString;
     protected int id;
 
     public Forma(double xInicial, double yInicial, Color cor, int id){
@@ -15,7 +16,13 @@ public abstract class Forma {
         this.id = id;
     }
 
+    public String getRgbString() {
+        return rgbString;
+    }
 
+    public void setRgbString(String rgbString) {
+        this.rgbString = rgbString;
+    }
 
     public void setxInicial(double xInicial) {
         this.xInicial = xInicial;

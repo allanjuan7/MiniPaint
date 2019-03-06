@@ -1,5 +1,6 @@
 package telas;
 
+import EntradaESaida.Arquivo;
 import Excecoes.ValorDeEntradaNegativoException;
 import formas.*;
 import javafx.event.ActionEvent;
@@ -13,12 +14,10 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import popup.Entrada;
 import popup.Mensagem;
-
-import javax.swing.*;
-
 import static java.lang.Math.abs;
 import static java.lang.Math.sqrt;
 
@@ -59,6 +58,18 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
     @FXML
     private TelaPintura telaPintura;
+
+    @FXML
+    private MenuBar menuBar;
+
+    @FXML
+    private Menu menuArquivo;
+
+    @FXML
+    private MenuItem menuItemSalvar;
+
+    @FXML
+    private MenuItem menuItemAbrir;
 
     public void onMousePressed(MouseEvent event) {
         telaPintura.setxInicial(event.getX());
@@ -107,7 +118,6 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent event){
-        instrucoes.setText("Clique e arraste no Canvas para começar a desenhar.");
 
         if (event.getSource() == ferramentaQuadrilatero){
             figuraSelecionada = "Quadrilatero";
@@ -152,6 +162,7 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         atualizarListViewERedesenhar();
     }
 
+    // Devemos passar esse método para uma outra classe, para fins de modularização? Se sim, qual?
     public static void validarEntradas(Entrada entradas[]) throws ValorDeEntradaNegativoException{
         for (Entrada e : entradas){
             if (e.getValorCampo() < 0){
@@ -160,7 +171,8 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         }
 
     }
-    public void btnEditarClicado() throws ValorDeEntradaNegativoException {
+
+    public void btnEditarClicado(){
 
         Forma formaSelecionada = formasListView.getSelectionModel().getSelectedItem();
 
@@ -276,8 +288,6 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
                     }
 
                 });
-
-
             }
 
             HBox hBoxInferior = new HBox(10);
@@ -290,6 +300,23 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
             stage.setScene(scene);
             stage.show();
         }
+    }
 
+    public void menuItemSalvarClicado() throws Exception{
+
+        Arquivo.salvarFigura(figura, "teste.ser");
+
+        Mensagem mensagem = new Mensagem("Figura salva com sucesso!");
+
+        mensagem.mostrar();
+    }
+
+    public void menuItemAbrirClicado() throws Exception{
+
+        Figura figuraCarregada = Arquivo.carregarFigura("teste.ser");
+        figura.incorporarFiguraCarregada(figuraCarregada);
+
+        apagarQuadro();
+        atualizarListViewERedesenhar();
     }
 }
