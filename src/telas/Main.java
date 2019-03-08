@@ -10,9 +10,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("TelaInicial.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("TelaPrincipal.fxml"));
         primaryStage.setTitle("MiniPaint");
-        primaryStage.setScene(new Scene(root, 800, 500));
+        primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
     }
 

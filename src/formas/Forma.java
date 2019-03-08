@@ -6,22 +6,15 @@ public abstract class Forma implements Serializable {
 
     protected double xInicial, yInicial;
     transient protected Color cor;
-    protected String rgbString;
     protected int id;
+    private String rgbString;
+
 
     public Forma(double xInicial, double yInicial, Color cor, int id){
         this.xInicial = xInicial;
         this.yInicial = yInicial;
         this.cor = cor;
         this.id = id;
-    }
-
-    public String getRgbString() {
-        return rgbString;
-    }
-
-    public void setRgbString(String rgbString) {
-        this.rgbString = rgbString;
     }
 
     public void setxInicial(double xInicial) {
@@ -46,6 +39,14 @@ public abstract class Forma implements Serializable {
 
     public Color getCor() {
         return cor;
+    }
+
+    public void setRgbString(String rgbString) {
+        this.rgbString = rgbString;
+    }
+
+    public String getRgbString() {
+        return rgbString;
     }
 
     public abstract String toString();

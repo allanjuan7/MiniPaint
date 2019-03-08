@@ -1,10 +1,8 @@
-package EntradaESaida;
+package entradaesaida;
 
 import formas.Figura;
 import formas.Forma;
 import javafx.scene.paint.Color;
-import popup.Mensagem;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -12,19 +10,22 @@ import java.io.ObjectOutputStream;
 
 public class Arquivo {
 
-    public static void salvarFigura(Figura figura, String nomeDoArquivo) throws Exception{
+    public static void salvarFigura(Figura figura, String nomeDoArquivo, String caminhoDoArquivo) throws Exception{
 
         try{
-            FileOutputStream fileStream = new FileOutputStream(nomeDoArquivo);
-
-            ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
 
             for (Forma f : figura.getFormas()){
                 f.setRgbString(f.getCor().toString());
             }
+
+            FileOutputStream fileStream = new FileOutputStream(nomeDoArquivo);
+
+            ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
+
             objectStream.writeObject(figura);
 
             objectStream.close();
+
         }  catch (Exception e){
             e.printStackTrace();
         }
@@ -36,9 +37,11 @@ public class Arquivo {
         try {
 
             FileInputStream fileStream = new FileInputStream(caminho);
+
             ObjectInputStream objectStream = new ObjectInputStream(fileStream);
 
             Object objetoCarregado = objectStream.readObject();
+
             Figura figuraCarregada = (Figura) objetoCarregado;
 
             Color cor;

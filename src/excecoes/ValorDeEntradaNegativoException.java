@@ -1,6 +1,4 @@
-package Excecoes;
-
-import popup.Entrada;
+package excecoes;
 
 public class ValorDeEntradaNegativoException extends Exception {
 
