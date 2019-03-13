@@ -3,6 +3,7 @@ package entradaesaida;
 import formas.Figura;
 import formas.Forma;
 import javafx.scene.paint.Color;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -18,6 +19,7 @@ public class Arquivo {
                 f.setRgbString(f.getCor().toString());
             }
 
+            // O caminho é passado em nomeDoArquivo
             FileOutputStream fileStream = new FileOutputStream(nomeDoArquivo);
 
             ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);

@@ -173,10 +173,13 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
     public void btnDeletarClicado(){
 
         Integer index = formasListView.getSelectionModel().getSelectedIndex();
-        figura.deletarFormaEm(index); formasListView.getItems().clear();
 
-        apagarQuadro();
-        atualizarListViewERedesenhar();
+        if (index >= 0){
+            figura.deletarFormaEm(index); formasListView.getItems().clear();
+
+            apagarQuadro();
+            atualizarListViewERedesenhar();
+        }
     }
 
     // Devemos passar esse método para uma outra classe, para fins de modularização? Se sim, qual?
@@ -240,7 +243,7 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
                     } catch (ValorDeEntradaNegativoException ex){
 
-                        Mensagem mensagemDeErro = new Mensagem("Valor de entrada negativo. Insira um valor válido", 100, 500);
+                        Mensagem mensagemDeErro = new Mensagem("Valor de entrada negativo. Insira um valor válido", "Valores invalidos", 100, 500);
                         mensagemDeErro.mostrar();
                     }
                 });
@@ -271,7 +274,7 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
                     } catch(ValorDeEntradaNegativoException ex){
 
-                        Mensagem mensagemDeErro = new Mensagem("Valor de entrada negativo. Insira um valor válido", 100, 500);
+                        Mensagem mensagemDeErro = new Mensagem("Valor de entrada negativo. Insira um valor válido", "Valores invalidos", 100, 500);
                         mensagemDeErro.mostrar();
                     }
                 });
@@ -300,7 +303,7 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
                         atualizarListViewERedesenhar();
                     } catch(ValorDeEntradaNegativoException ex){
 
-                        Mensagem mensagemDeErro = new Mensagem("Valor de entrada negativo. Insira um valor válido", 100, 500);
+                        Mensagem mensagemDeErro = new Mensagem("Valor de entrada negativo. Insira um valor válido", "Valores invalidos", 100, 500);
                         mensagemDeErro.mostrar();
                     }
 
@@ -342,7 +345,7 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
         Arquivo.salvarFigura(figura, "teste.ser", "caminho");
 
-        Mensagem mensagem = new Mensagem("Figura salva com sucesso!");
+        Mensagem mensagem = new Mensagem("Figura salva com sucesso!", "Salvar");
 
         mensagem.mostrar();
     }
@@ -360,12 +363,12 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         File file = fileChooser.showSaveDialog(stage);
 
         if (file == null){
-            Mensagem mensagem = new Mensagem("null");
+            Mensagem mensagem = new Mensagem("null", "Salvar como");
             mensagem.mostrar();
         }
         if (file != null) {
             Arquivo.salvarFigura(figura, file.getName(), file.getAbsolutePath());
-            Mensagem mensagem = new Mensagem("Salvei");
+            Mensagem mensagem = new Mensagem("Salvei", "Salvar como");
             mensagem.mostrar();
         }
     }

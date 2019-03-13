@@ -11,15 +11,18 @@ public class Mensagem {
     private String mensagem;
     private double alturaDaJanela;
     private double larguraDaJanela;
+    private String titulo;
 
-    public Mensagem(String mensagem){
+    public Mensagem(String mensagem, String titulo){
         this.mensagem = mensagem;
+        this.titulo = titulo;
         alturaDaJanela = 200;
         larguraDaJanela = 500;
     }
 
-    public Mensagem(String mensagem, double alturaDaJanela, double larguraDaJanela){
+    public Mensagem(String mensagem, String titulo, double alturaDaJanela, double larguraDaJanela){
         this.mensagem = mensagem;
+        this.titulo = titulo;
         this.alturaDaJanela = alturaDaJanela;
         this.larguraDaJanela = larguraDaJanela;
     }
@@ -34,7 +37,7 @@ public class Mensagem {
         vBox.getChildren().add(label);
 
         Scene scene = new Scene(vBox, larguraDaJanela, alturaDaJanela);
-        stage.setTitle("Entrada Inválida");
+        stage.setTitle(titulo);
         stage.setScene(scene);
         stage.show();
     }
