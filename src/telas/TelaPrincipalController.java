@@ -40,9 +40,6 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
     private ListView<Forma> formasListView;
 
     @FXML
-    private Label instrucoes;
-
-    @FXML
     private Button ferramentaTriangulo;
 
     @FXML
@@ -52,35 +49,13 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
     private Button ferramentaCirculo;
 
     @FXML
-    private Button btnLimpar;
-
-    @FXML
-    private Button btnEditar;
-
-    @FXML
-    private Button btnDeletar;
-
-    @FXML
     private ColorPicker selecCor;
 
     @FXML
     private TelaPintura telaPintura;
 
     @FXML
-    private MenuBar menuBar;
-
-    @FXML
-    private Menu menuArquivo;
-
-    @FXML
-    private MenuItem menuItemSalvar;
-
-    @FXML
-    private MenuItem menuItemAbrir;
-
-    @FXML
     private ChoiceBox<String> modoDeDesenhoBox;
-
 
     @FXML
     public void initialize(){
@@ -96,7 +71,7 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         telaPintura.setyInicial(event.getY());
     }
 
-    public void onMouseReleased(MouseEvent event){
+    public void onMouseReleased(MouseEvent event) throws Exception{
 
         double xFinal, yFinal, xInicial, yInicial, largura, altura;
 
@@ -182,16 +157,6 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         }
     }
 
-    // Devemos passar esse método para uma outra classe, para fins de modularização? Se sim, qual?
-    public static void validarEntradas(Entrada entradas[]) throws ValorDeEntradaNegativoException{
-        for (Entrada e : entradas){
-            if (e.getValorCampo() < 0){
-                throw new ValorDeEntradaNegativoException();
-            }
-        }
-
-    }
-
     public void btnEditarClicado(){
 
         Forma formaSelecionada = formasListView.getSelectionModel().getSelectedItem();
@@ -230,8 +195,6 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
                 btnConfirmar.setOnAction(e -> {
                     try {
 
-                        validarEntradas(new Entrada[] {entradaPosX, entradaPosY, entradaRaio});
-
                         circulo.setxInicial(entradaPosX.getValorCampo());
                         circulo.setyInicial(entradaPosY.getValorCampo());
                         circulo.setRaio(entradaRaio.getValorCampo());
@@ -243,7 +206,7 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
                     } catch (ValorDeEntradaNegativoException ex){
 
-                        Mensagem mensagemDeErro = new Mensagem("Valor de entrada negativo. Insira um valor válido", "Valores invalidos", 100, 500);
+                        Mensagem mensagemDeErro = new Mensagem("Valor de entrada inválido. Insira um valor maior que 0.", "Valores invalidos", 100, 500);
                         mensagemDeErro.mostrar();
                     }
                 });
@@ -262,7 +225,6 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
                     try{
 
-                        validarEntradas(new Entrada[] {entradaPosX, entradaPosY, entradaBase, entradaAltura});
                         quadrilatero.setxInicial(entradaPosX.getValorCampo());
                         quadrilatero.setyInicial(entradaPosY.getValorCampo());
                         quadrilatero.setBase(entradaBase.getValorCampo());
@@ -290,8 +252,7 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
                 vBox.getChildren().addAll(entradaBase.getHBox(), entradaAltura.getHBox(), colorPicker);
 
                 btnConfirmar.setOnAction(e -> {
-                    try{
-                        validarEntradas(new Entrada[] {entradaPosX, entradaPosY, entradaBase, entradaAltura});
+                    try {
 
                         triangulo.setxInicial(entradaPosX.getValorCampo());
                         triangulo.setyInicial(entradaPosY.getValorCampo());
@@ -371,15 +332,5 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
             Mensagem mensagem = new Mensagem("Salvei", "Salvar como");
             mensagem.mostrar();
         }
-    }
-
-    // Esse método está estranho pq os limites de TelaPintura não estão bem definidos. 
-    public void menuItemCorDoPlanoDeFundoClicado(){
-
-        // Aqui vamos criar uma nove janela onde o usuário vai selecionar a cor, mas por enquanto vamos usar nosso ColorPicker padrão
-
-        GraphicsContext contexto = telaPintura.getGraphicsContext2D();
-        contexto.setFill(selecCor.getValue());
-        contexto.fillRect(0, 0, telaPintura.getWidth(), telaPintura.getHeight());
     }
 }

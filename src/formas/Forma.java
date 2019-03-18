@@ -1,5 +1,6 @@
 package formas;
 
+import excecoes.ValorDeEntradaNegativoException;
 import javafx.scene.paint.Color;
 
 import java.io.Serializable;
@@ -12,22 +13,35 @@ public abstract class Forma implements Serializable {
     private String rgbString;
 
 
-    public Forma(double xInicial, double yInicial, Color cor, int id){
+    public Forma(double xInicial, double yInicial, Color cor, int id) throws Exception{
+
+        if (xInicial < 0 || yInicial < 0) {
+            throw new ValorDeEntradaNegativoException();
+        }
+
         this.xInicial = xInicial;
         this.yInicial = yInicial;
         this.cor = cor;
         this.id = id;
     }
 
-    public void setxInicial(double xInicial) {
+    public void setxInicial(double xInicial) throws ValorDeEntradaNegativoException {
+        if (xInicial < 0){
+            throw new ValorDeEntradaNegativoException();
+        }
+
         this.xInicial = xInicial;
+
     }
 
     public double getxInicial() {
         return xInicial;
     }
 
-    public void setyInicial(double yInicial) {
+    public void setyInicial(double yInicial) throws ValorDeEntradaNegativoException {
+        if (yInicial < 0){
+            throw new ValorDeEntradaNegativoException();
+        }
         this.yInicial = yInicial;
     }
 
