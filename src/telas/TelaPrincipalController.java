@@ -8,18 +8,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import popup.Entrada;
 import popup.Mensagem;
+import popup.TelaEdicaoCirculo;
+import popup.TelaEdicaoPoligono;
 
 import java.io.File;
 
@@ -163,44 +159,21 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
         if (formaSelecionada != null){
 
-            VBox vBox = new VBox(10);
-            vBox.setPadding(new Insets(10, 10, 10, 10));
-            vBox.setAlignment(Pos.TOP_CENTER);
-
-            Stage stage = new Stage();
-
-            Entrada entradaPosX = new Entrada("PosX", formaSelecionada.getxInicial());
-            Entrada entradaPosY = new Entrada("PosY", formaSelecionada.getyInicial());
-
-            ColorPicker colorPicker = new ColorPicker();
-            colorPicker.setValue(formaSelecionada.getCor());
-            colorPicker.setMinWidth(225);
-
-            Button btnConfirmar = new Button("Confirmar");
-            Button btnCancelar = new Button("Cancelar");
-
-            btnCancelar.setOnAction(e -> {
-                stage.close();
-            });
-
-            vBox.getChildren().addAll(entradaPosX.getHBox(), entradaPosY.getHBox());
-
             if (formaSelecionada instanceof Circulo){
 
                 Circulo circulo = (Circulo) formaSelecionada;
-                Entrada entradaRaio = new Entrada("Raio", circulo.getRaio());
 
-                vBox.getChildren().addAll(entradaRaio.getHBox(), colorPicker);
+                TelaEdicaoCirculo telaEdicao = new TelaEdicaoCirculo(circulo);
 
-                btnConfirmar.setOnAction(e -> {
+                telaEdicao.getBtnConfirmar().setOnAction( e -> {
                     try {
 
-                        circulo.setxInicial(entradaPosX.getValorCampo());
-                        circulo.setyInicial(entradaPosY.getValorCampo());
-                        circulo.setRaio(entradaRaio.getValorCampo());
-                        circulo.setCor(colorPicker.getValue());
+                        circulo.setxInicial(telaEdicao.getEntradaPosX().getValorCampo());
+                        circulo.setyInicial(telaEdicao.getEntradaPosY().getValorCampo());
+                        circulo.setRaio(telaEdicao.getEntradaRaio().getValorCampo());
+                        circulo.setCor(telaEdicao.getColorPicker().getValue());
 
-                        stage.close();
+                        telaEdicao.getStage().close();
                         apagarQuadro();
                         atualizarListViewERedesenhar();
 
@@ -210,28 +183,27 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
                         mensagemDeErro.mostrar();
                     }
                 });
+
+                telaEdicao.mostrar();
             }
 
             if (formaSelecionada instanceof Quadrilatero){
 
                 Quadrilatero quadrilatero = (Quadrilatero) formaSelecionada;
 
-                Entrada entradaBase = new Entrada("Base", quadrilatero.getBase());
-                Entrada entradaAltura = new Entrada("Altura", quadrilatero.getAltura());
+                TelaEdicaoPoligono telaEdicao = new TelaEdicaoPoligono(formaSelecionada);
 
-                vBox.getChildren().addAll(entradaBase.getHBox(), entradaAltura.getHBox(), colorPicker);
-
-                btnConfirmar.setOnAction(e -> {
+                telaEdicao.getBtnConfirmar().setOnAction(e -> {
 
                     try{
 
-                        quadrilatero.setxInicial(entradaPosX.getValorCampo());
-                        quadrilatero.setyInicial(entradaPosY.getValorCampo());
-                        quadrilatero.setBase(entradaBase.getValorCampo());
-                        quadrilatero.setAltura(entradaAltura.getValorCampo());
-                        quadrilatero.setCor(colorPicker.getValue());
+                        quadrilatero.setxInicial(telaEdicao.getEntradaPosX().getValorCampo());
+                        quadrilatero.setyInicial(telaEdicao.getEntradaPosY().getValorCampo());
+                        quadrilatero.setBase(telaEdicao.getEntradaAltura().getValorCampo());
+                        quadrilatero.setAltura(telaEdicao.getEntradaBase().getValorCampo());
+                        quadrilatero.setCor(telaEdicao.getColorPicker().getValue());
 
-                        stage.close(); apagarQuadro();
+                        telaEdicao.getStage().close(); apagarQuadro();
                         atualizarListViewERedesenhar();
 
                     } catch(ValorDeEntradaNegativoException ex){
@@ -240,27 +212,26 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
                         mensagemDeErro.mostrar();
                     }
                 });
+
+                telaEdicao.mostrar();
             }
 
             if (formaSelecionada instanceof Triangulo){
 
                 Triangulo triangulo = (Triangulo) formaSelecionada;
 
-                Entrada entradaBase = new Entrada("Base", triangulo.getBase());
-                Entrada entradaAltura = new Entrada("Altura", triangulo.getAltura());
+                TelaEdicaoPoligono telaEdicao = new TelaEdicaoPoligono(formaSelecionada);
 
-                vBox.getChildren().addAll(entradaBase.getHBox(), entradaAltura.getHBox(), colorPicker);
-
-                btnConfirmar.setOnAction(e -> {
+                telaEdicao.getBtnConfirmar().setOnAction(e -> {
                     try {
 
-                        triangulo.setxInicial(entradaPosX.getValorCampo());
-                        triangulo.setyInicial(entradaPosY.getValorCampo());
-                        triangulo.setBase(entradaBase.getValorCampo());
-                        triangulo.setAltura(entradaAltura.getValorCampo());
-                        triangulo.setCor(colorPicker.getValue());
+                        triangulo.setxInicial(telaEdicao.getEntradaPosX().getValorCampo());
+                        triangulo.setyInicial(telaEdicao.getEntradaPosY().getValorCampo());
+                        triangulo.setBase(telaEdicao.getEntradaBase().getValorCampo());
+                        triangulo.setAltura(telaEdicao.getEntradaAltura().getValorCampo());
+                        triangulo.setCor(telaEdicao.getColorPicker().getValue());
 
-                        stage.close(); apagarQuadro();
+                        telaEdicao.getStage().close(); apagarQuadro();
                         atualizarListViewERedesenhar();
                     } catch(ValorDeEntradaNegativoException ex){
 
@@ -269,17 +240,9 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
                     }
 
                 });
+
+                telaEdicao.mostrar();
             }
-
-            HBox hBoxInferior = new HBox(10);
-            hBoxInferior.getChildren().addAll(btnConfirmar, btnCancelar);
-            hBoxInferior.setAlignment(Pos.CENTER);
-
-            vBox.getChildren().addAll(hBoxInferior);
-
-            Scene scene = new Scene(vBox, 400, 300);
-            stage.setScene(scene);
-            stage.show();
         }
     }
 
