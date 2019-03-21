@@ -1,17 +1,20 @@
 package formas;
 
 import excecoes.ValorDeEntradaNegativoException;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ListView;
 import javafx.scene.paint.Color;
+import telas.TelaPintura;
 
 import java.io.Serializable;
+import java.util.List;
 
 public abstract class Forma implements Serializable {
 
     protected double xInicial, yInicial;
     transient protected Color cor;
+    protected String rgbString, modoDeDesenho;
     protected int id;
-    private String rgbString;
-
 
     public Forma(double xInicial, double yInicial, Color cor, int id) throws Exception{
 
@@ -29,9 +32,7 @@ public abstract class Forma implements Serializable {
         if (xInicial < 0){
             throw new ValorDeEntradaNegativoException();
         }
-
         this.xInicial = xInicial;
-
     }
 
     public double getxInicial() {
@@ -57,6 +58,14 @@ public abstract class Forma implements Serializable {
         return cor;
     }
 
+    public String getModoDeDesenho() {
+        return modoDeDesenho;
+    }
+
+    public void setModoDeDesenho(String modoDeDesenho) {
+        this.modoDeDesenho = modoDeDesenho;
+    }
+
     public void setRgbString(String rgbString) {
         this.rgbString = rgbString;
     }
@@ -64,6 +73,16 @@ public abstract class Forma implements Serializable {
     public String getRgbString() {
         return rgbString;
     }
+
+    public void desenhar(GraphicsContext contexto){
+        if (modoDeDesenho.equals("Contornar"))
+            contexto.setStroke(cor);
+
+        if (modoDeDesenho.equals("Preencher"))
+            contexto.setFill(cor);
+    }
+
+    public abstract void editar(TelaPintura telaPintura, ListView listView);
 
     public abstract String toString();
 

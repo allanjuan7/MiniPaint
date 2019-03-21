@@ -1,4 +1,4 @@
-package entradaesaida;
+package controle;
 
 import formas.Figura;
 import formas.Forma;

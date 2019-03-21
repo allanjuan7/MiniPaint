@@ -1,6 +1,7 @@
 package telas;
 
-import entradaesaida.Arquivo;
+import controle.Arquivo;
+import controle.Controle;
 import excecoes.ValorDeEntradaNegativoException;
 import formas.*;
 import javafx.collections.FXCollections;
@@ -26,9 +27,9 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
     ObservableList<String> modoDeDesenhoList = FXCollections.observableArrayList("Preencher", "Contornar");
 
-    private int nQuadrilateros, nTriangulos, nCirculos;
-
     private Figura figura = new Figura();
+
+    private int nQuadrilateros, nTriangulos, nCirculos;
 
     private String figuraSelecionada;
 
@@ -60,6 +61,9 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         modoDeDesenhoBox.setValue("Preencher");
 
         formasListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+        Controle.controle.setListView(formasListView);
+        Controle.controle.setTelaPintura(telaPintura);
     }
 
     public void onMousePressed(MouseEvent event) {
@@ -99,7 +103,7 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         if (novaForma != null){
             telaPintura.desenhar(novaForma, modoDeDesenhoBox.getValue());
 
-            figura.addForma(novaForma);
+            Controle.controle.addForma(novaForma);
             formasListView.getItems().add(novaForma);
         }
     }
@@ -118,132 +122,18 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         }
     }
 
-    // Apenas apaga o Canvas. É chamado em outros métodos.
-    public void apagarQuadro(){
-        GraphicsContext contextoGrafico = telaPintura.getGraphicsContext2D();
-        contextoGrafico.clearRect(0,0, telaPintura.getWidth(), telaPintura.getHeight());
-    }
-
     // Apaga o Canvas e reinicia as variáveis, é chamado pelo botão LIMPAR
-    public void apagarTudo(){
+    public void btnLimparClicado(){
         nQuadrilateros = 0; nTriangulos = 0; nCirculos = 0;
-        figura.limpar(); formasListView.getItems().clear();
-        apagarQuadro();
-    }
-
-    public void atualizarListViewERedesenhar(){
-
-        formasListView.getItems().clear();
-
-        for (Forma f : figura.getFormas()){
-            formasListView.getItems().add(f);
-            telaPintura.desenhar(f, modoDeDesenhoBox.getValue());
-        }
+        Controle.controle.reiniciarFigura(formasListView, telaPintura);
     }
 
     public void btnDeletarClicado(){
-
-        Integer index = formasListView.getSelectionModel().getSelectedIndex();
-
-        if (index >= 0){
-            figura.deletarFormaEm(index); formasListView.getItems().clear();
-
-            apagarQuadro();
-            atualizarListViewERedesenhar();
-        }
+        Controle.controle.deletarForma(telaPintura, formasListView);
     }
 
     public void btnEditarClicado(){
-
-        Forma formaSelecionada = formasListView.getSelectionModel().getSelectedItem();
-
-        if (formaSelecionada != null){
-
-            if (formaSelecionada instanceof Circulo){
-
-                Circulo circulo = (Circulo) formaSelecionada;
-
-                TelaEdicaoCirculo telaEdicao = new TelaEdicaoCirculo(circulo);
-
-                telaEdicao.getBtnConfirmar().setOnAction( e -> {
-                    try {
-
-                        circulo.setxInicial(telaEdicao.getEntradaPosX().getValorCampo());
-                        circulo.setyInicial(telaEdicao.getEntradaPosY().getValorCampo());
-                        circulo.setRaio(telaEdicao.getEntradaRaio().getValorCampo());
-                        circulo.setCor(telaEdicao.getColorPicker().getValue());
-
-                        telaEdicao.getStage().close();
-                        apagarQuadro();
-                        atualizarListViewERedesenhar();
-
-                    } catch (ValorDeEntradaNegativoException ex){
-
-                        Mensagem mensagemDeErro = new Mensagem("Valor de entrada inválido. Insira um valor maior que 0.", "Valores invalidos", 100, 500);
-                        mensagemDeErro.mostrar();
-                    }
-                });
-
-                telaEdicao.mostrar();
-            }
-
-            if (formaSelecionada instanceof Quadrilatero){
-
-                Quadrilatero quadrilatero = (Quadrilatero) formaSelecionada;
-
-                TelaEdicaoPoligono telaEdicao = new TelaEdicaoPoligono(formaSelecionada);
-
-                telaEdicao.getBtnConfirmar().setOnAction(e -> {
-
-                    try{
-
-                        quadrilatero.setxInicial(telaEdicao.getEntradaPosX().getValorCampo());
-                        quadrilatero.setyInicial(telaEdicao.getEntradaPosY().getValorCampo());
-                        quadrilatero.setBase(telaEdicao.getEntradaAltura().getValorCampo());
-                        quadrilatero.setAltura(telaEdicao.getEntradaBase().getValorCampo());
-                        quadrilatero.setCor(telaEdicao.getColorPicker().getValue());
-
-                        telaEdicao.getStage().close(); apagarQuadro();
-                        atualizarListViewERedesenhar();
-
-                    } catch(ValorDeEntradaNegativoException ex){
-
-                        Mensagem mensagemDeErro = new Mensagem("Valor de entrada negativo. Insira um valor válido", "Valores invalidos", 100, 500);
-                        mensagemDeErro.mostrar();
-                    }
-                });
-
-                telaEdicao.mostrar();
-            }
-
-            if (formaSelecionada instanceof Triangulo){
-
-                Triangulo triangulo = (Triangulo) formaSelecionada;
-
-                TelaEdicaoPoligono telaEdicao = new TelaEdicaoPoligono(formaSelecionada);
-
-                telaEdicao.getBtnConfirmar().setOnAction(e -> {
-                    try {
-
-                        triangulo.setxInicial(telaEdicao.getEntradaPosX().getValorCampo());
-                        triangulo.setyInicial(telaEdicao.getEntradaPosY().getValorCampo());
-                        triangulo.setBase(telaEdicao.getEntradaBase().getValorCampo());
-                        triangulo.setAltura(telaEdicao.getEntradaAltura().getValorCampo());
-                        triangulo.setCor(telaEdicao.getColorPicker().getValue());
-
-                        telaEdicao.getStage().close(); apagarQuadro();
-                        atualizarListViewERedesenhar();
-                    } catch(ValorDeEntradaNegativoException ex){
-
-                        Mensagem mensagemDeErro = new Mensagem("Valor de entrada negativo. Insira um valor válido", "Valores invalidos", 100, 500);
-                        mensagemDeErro.mostrar();
-                    }
-
-                });
-
-                telaEdicao.mostrar();
-            }
-        }
+        Controle.controle.editarForma();
     }
 
     public void menuItemAbrirClicado(){
@@ -260,9 +150,9 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
         figura.incorporarFiguraCarregada(figuraDesserializada);
 
-        apagarQuadro();
+        Controle.controle.apagarQuadro(telaPintura);
 
-        atualizarListViewERedesenhar();
+        Controle.controle.atualizarListViewERedesenhar(telaPintura, formasListView);
     }
 
     public void menuItemSalvarClicado() throws Exception{
