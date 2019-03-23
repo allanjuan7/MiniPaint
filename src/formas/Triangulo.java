@@ -79,7 +79,7 @@ public class Triangulo extends Forma {
                 setAltura(telaEdicao.getEntradaAltura().getValorCampo());
                 setCor(telaEdicao.getColorPicker().getValue());
 
-                telaEdicao.getStage().close(); Controle.controle.apagarQuadro(telaPintura);
+                telaEdicao.getStage().close(); Controle.controle.apagarQuadro();
                 Controle.controle.atualizarListViewERedesenhar(telaPintura, listView);
             } catch(ValorDeEntradaNegativoException ex){
 

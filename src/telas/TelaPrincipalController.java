@@ -1,24 +1,15 @@
 package telas;
 
-import controle.Arquivo;
 import controle.Controle;
-import excecoes.ValorDeEntradaNegativoException;
 import formas.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import popup.Mensagem;
-import popup.TelaEdicaoCirculo;
-import popup.TelaEdicaoPoligono;
-
-import java.io.File;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.sqrt;
@@ -26,8 +17,6 @@ import static java.lang.Math.sqrt;
 public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
     ObservableList<String> modoDeDesenhoList = FXCollections.observableArrayList("Preencher", "Contornar");
-
-    private Figura figura = new Figura();
 
     private int nQuadrilateros, nTriangulos, nCirculos;
 
@@ -64,6 +53,8 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
         Controle.controle.setListView(formasListView);
         Controle.controle.setTelaPintura(telaPintura);
+
+        Controle.controle.setCaminhoDoArquivo("arquivo.ser");
     }
 
     public void onMousePressed(MouseEvent event) {
@@ -122,14 +113,13 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         }
     }
 
-    // Apaga o Canvas e reinicia as variáveis, é chamado pelo botão LIMPAR
     public void btnLimparClicado(){
         nQuadrilateros = 0; nTriangulos = 0; nCirculos = 0;
         Controle.controle.reiniciarFigura(formasListView, telaPintura);
     }
 
     public void btnDeletarClicado(){
-        Controle.controle.deletarForma(telaPintura, formasListView);
+        Controle.controle.deletarForma();
     }
 
     public void btnEditarClicado(){
@@ -138,26 +128,13 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
     public void menuItemAbrirClicado(){
 
-        FileChooser fileChooser = new FileChooser();
-
-        fileChooser.setTitle("Selecione uma figura");
-
-        Stage stage = new Stage();
-
-        File figuraSerializada = fileChooser.showOpenDialog(stage).getAbsoluteFile();
-
-        Figura figuraDesserializada = Arquivo.carregarFigura(figuraSerializada.getAbsolutePath());
-
-        figura.incorporarFiguraCarregada(figuraDesserializada);
-
-        Controle.controle.apagarQuadro(telaPintura);
-
-        Controle.controle.atualizarListViewERedesenhar(telaPintura, formasListView);
+        String caminho = Controle.controle.lancarFileChooser("abrir");
+        Controle.controle.abrirArquivo(caminho);
     }
 
     public void menuItemSalvarClicado() throws Exception{
 
-        Arquivo.salvarFigura(figura, "teste.ser", "caminho");
+        Controle.controle.serializarFigura();
 
         Mensagem mensagem = new Mensagem("Figura salva com sucesso!", "Salvar");
 
@@ -166,23 +143,17 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
     public void menuItemSalvarComoClicado() throws Exception{
 
-        FileChooser fileChooser = new FileChooser();
-        Stage stage = new Stage();
+        String caminho = Controle.controle.lancarFileChooser("salvar");
 
-        //Set extension filter for text files
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Arquivos SER (*.ser)", "*.ser");
-        fileChooser.getExtensionFilters().add(extFilter);
-
-        //Show save file dialog
-        File file = fileChooser.showSaveDialog(stage);
-
-        if (file == null){
-            Mensagem mensagem = new Mensagem("null", "Salvar como");
+        if (caminho == null){
+            Mensagem mensagem = new Mensagem("Erro! Nenhum arquivo foi selecionado.", "Salvar como");
             mensagem.mostrar();
         }
-        if (file != null) {
-            Arquivo.salvarFigura(figura, file.getName(), file.getAbsolutePath());
-            Mensagem mensagem = new Mensagem("Salvei", "Salvar como");
+
+        else {
+            Controle.controle.setCaminhoDoArquivo(caminho);
+            Controle.controle.serializarFigura();
+            Mensagem mensagem = new Mensagem("Arquivo salvo com sucesso!", "Salvar como");
             mensagem.mostrar();
         }
     }

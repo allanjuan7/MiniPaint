@@ -4,13 +4,12 @@ import formas.Figura;
 import formas.Forma;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ListView;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import telas.TelaPintura;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +21,7 @@ public class Controle {
     private TelaPintura telaPintura;
     private ListView<Forma> listView;
     private ArrayList<Forma> formas;
+    private String caminhoDoArquivo;
 
     public Controle() {
         formas = new ArrayList<>();
@@ -33,6 +33,10 @@ public class Controle {
 
     public void setListView(ListView<Forma> listView) {
         this.listView = listView;
+    }
+
+    public void setCaminhoDoArquivo(String caminhoDoArquivo) {
+        this.caminhoDoArquivo = caminhoDoArquivo;
     }
 
     public void addForma(Forma f) {
@@ -48,13 +52,13 @@ public class Controle {
         formaSelecionada.editar(telaPintura, listView);
     }
 
-    public void deletarForma(TelaPintura telaPintura, ListView listView) {
+    public void deletarForma() {
         int index = listView.getSelectionModel().getSelectedIndex();
 
         if (index >= 0) {
             controle.getFormas().remove(index);
 
-            controle.apagarQuadro(telaPintura);
+            controle.apagarQuadro();
             controle.atualizarListViewERedesenhar(telaPintura, listView);
         }
     }
@@ -63,7 +67,7 @@ public class Controle {
         formas.clear();
     }
 
-    public void apagarQuadro(TelaPintura telaPintura) {
+    public void apagarQuadro() {
         GraphicsContext contextoGrafico = telaPintura.getGraphicsContext2D();
         contextoGrafico.clearRect(0, 0, telaPintura.getWidth(), telaPintura.getHeight());
     }
@@ -71,7 +75,7 @@ public class Controle {
     public void reiniciarFigura(ListView listView, TelaPintura telaPintura) {
         controle.limpar();
         listView.getItems().clear();
-        controle.apagarQuadro(telaPintura);
+        controle.apagarQuadro();
     }
 
     public void atualizarListViewERedesenhar(TelaPintura telaPintura, ListView listView) {
@@ -83,4 +87,83 @@ public class Controle {
             telaPintura.desenhar(f, f.getModoDeDesenho());
         }
     }
+
+    public void serializarFigura(){
+        try{
+
+            for (Forma f : formas){
+                f.setRgbString(f.getCor().toString());
+            }
+
+            FileOutputStream fileStream = new FileOutputStream(caminhoDoArquivo);
+
+            ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
+
+            objectStream.writeObject(formas); objectStream.close();
+
+        }  catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Forma> desserializarFigura(String caminho){
+        try {
+
+            FileInputStream fileStream = new FileInputStream(caminho);
+
+            ObjectInputStream objectStream = new ObjectInputStream(fileStream);
+
+            Object objetoCarregado = objectStream.readObject();
+
+            ArrayList<Forma> figuraCarregada = (ArrayList<Forma>) objetoCarregado;
+
+            Color cor;
+
+            for (Forma f : figuraCarregada){
+                cor = Color.web(f.getRgbString());
+                f.setCor(cor);
+            }
+
+            return figuraCarregada;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void incorporarFiguraCarregada(ArrayList<Forma> figuraCarregada){
+
+        for (Forma f : figuraCarregada){
+            formas.add(f);
+        }
+    }
+
+    public String lancarFileChooser(String tarefa){
+
+        FileChooser fileChooser = new FileChooser();
+
+        fileChooser.setTitle("MiniPaint");
+        Stage stage = new Stage();
+
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Arquivos SER (*.ser)", "*.ser");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        if (tarefa.equals("abrir"))
+            return fileChooser.showOpenDialog(stage).getAbsoluteFile().getAbsolutePath();
+
+        return fileChooser.showSaveDialog(stage).getAbsolutePath();
+    }
+
+    public void abrirArquivo(String caminho){
+
+        ArrayList<Forma> figuraDesserializada = controle.desserializarFigura(caminho);
+
+        Controle.controle.incorporarFiguraCarregada(figuraDesserializada);
+
+        Controle.controle.apagarQuadro();
+
+        Controle.controle.atualizarListViewERedesenhar(telaPintura, listView);
+    }
+
 }

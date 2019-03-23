@@ -54,7 +54,7 @@ public class Circulo extends Forma{
                 setCor(telaEdicao.getColorPicker().getValue());
 
                 telaEdicao.getStage().close();
-                Controle.controle.apagarQuadro(telaPintura);
+                Controle.controle.apagarQuadro();
                 Controle.controle.atualizarListViewERedesenhar(telaPintura, listView);
 
             } catch (ValorDeEntradaNegativoException ex){
