@@ -16,7 +16,7 @@ import java.util.List;
 public class Controle {
 
     /* Padrão de Projeto SINGLETON - Asseguro que haverá sempre
-    uma e somente uma instância de Controle, acessível em qualquer lugar */
+    *uma e somente uma instância de Controle, acessível em qualquer lugar */
     public static Controle controle = new Controle();
     private TelaPintura telaPintura;
     private ListView<Forma> listView;
@@ -36,6 +36,8 @@ public class Controle {
     }
 
     public void setCaminhoDoArquivo(String caminhoDoArquivo) {
+        /*Checar se o final da string tem .ser ou não
+        *  no meu notebook salvei e não reconheceu depois */
         this.caminhoDoArquivo = caminhoDoArquivo;
     }
 
@@ -140,7 +142,8 @@ public class Controle {
     }
 
     public String lancarFileChooser(String tarefa){
-
+        /*Checar o que acontece ao cancelar a selecao
+          Dando NullPointerException */
         FileChooser fileChooser = new FileChooser();
 
         fileChooser.setTitle("MiniPaint");
@@ -158,7 +161,8 @@ public class Controle {
     public void abrirArquivo(String caminho){
 
         ArrayList<Forma> figuraDesserializada = controle.desserializarFigura(caminho);
-
+        /* Controle.controle.reiniciarFigura(); para jogar a figura atual fora
+        e eliminar possíveis duplicatas */
         Controle.controle.incorporarFiguraCarregada(figuraDesserializada);
 
         Controle.controle.apagarQuadro();

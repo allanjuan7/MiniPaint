@@ -16,7 +16,7 @@ import static java.lang.Math.sqrt;
 
 public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
-    ObservableList<String> modoDeDesenhoList = FXCollections.observableArrayList("Preencher", "Contornar");
+    private ObservableList<String> modoDeDesenhoList = FXCollections.observableArrayList("Preencher", "Contornar");
 
     private int nQuadrilateros, nTriangulos, nCirculos;
 
@@ -57,11 +57,24 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         Controle.controle.setCaminhoDoArquivo("arquivo.ser");
     }
 
+    /**
+     * Guarda a posição X e Y onde a tela de pintura foi clicada.
+     *
+     * @param event
+     */
     public void onMousePressed(MouseEvent event) {
         telaPintura.setxInicial(event.getX());
         telaPintura.setyInicial(event.getY());
     }
 
+    /**
+     * Com as posições X e Y iniciais e finais e a informação sobre a figuraSelecionada,
+     * instância a figura, guarda em um array e manda a telaPintura desenhar.
+     *
+     * @see TelaPintura
+     * @param event
+     * @throws Exception exceção ainda não tratada (ValoresInvalidosException)
+     */
     public void onMouseReleased(MouseEvent event) throws Exception{
 
         double xFinal, yFinal, xInicial, yInicial, largura, altura;
@@ -99,6 +112,12 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         }
     }
 
+    /**
+     * Método responsável pelos botões de seleção de ferramenta.
+     * Recebe o evento do botão clicado e seta a figuraSelecionada.
+     *
+     * @param event
+     */
     @Override
     public void handle(ActionEvent event){
 
@@ -113,27 +132,56 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         }
     }
 
+    /**
+     * Método responsável pelo botão de limpar a tela.
+     * Chama a função reiniciarFigura do Controle.
+     *
+     * @see Controle
+     */
     public void btnLimparClicado(){
         nQuadrilateros = 0; nTriangulos = 0; nCirculos = 0;
         Controle.controle.reiniciarFigura(formasListView, telaPintura);
     }
 
+    /**
+     * Método responsável pelo botão de deletar a forma selecionada
+     * no menu do listView.
+     *
+     * @see Controle
+     */
     public void btnDeletarClicado(){
         Controle.controle.deletarForma();
     }
 
+    /**
+     * Método responsável pelo botão de editar a forma selecionada
+     * no menu do listView
+     *
+     * @see Controle
+     */
     public void btnEditarClicado(){
         Controle.controle.editarForma();
     }
 
+    /**
+     * Método responsável pelo botão de abrir arquivo.
+     *
+     * @see Controle
+     */
     public void menuItemAbrirClicado(){
-
+        /*Do jeito que esta implementado atualmente adiciona a figura que esta sendo carregada
+        a figura atual, podendo, e causando duplicatas*/
         String caminho = Controle.controle.lancarFileChooser("abrir");
         Controle.controle.abrirArquivo(caminho);
     }
 
-    public void menuItemSalvarClicado() throws Exception{
-
+    /**
+     * Método responsável pelo botão de salvar.
+     *
+     * @see Controle
+     */
+    public void menuItemSalvarClicado(){
+        //A exceção que tava aqui ja esta sendo tratada no metodo serializarFigura
         Controle.controle.serializarFigura();
 
         Mensagem mensagem = new Mensagem("Figura salva com sucesso!", "Salvar");
@@ -141,10 +189,16 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         mensagem.mostrar();
     }
 
+    /**
+     * Método responsável pelo botão de salvar como.
+     *
+     * @see Controle
+     * @throws Exception (A excecao tem que ser tratada aqui, não tem mais pra onde jogar)
+     */
     public void menuItemSalvarComoClicado() throws Exception{
 
         String caminho = Controle.controle.lancarFileChooser("salvar");
-
+        //O caminho pode ser null? O file chooser não me deixa não escolher um arquivo ao clicar open
         if (caminho == null){
             Mensagem mensagem = new Mensagem("Erro! Nenhum arquivo foi selecionado.", "Salvar como");
             mensagem.mostrar();
