@@ -18,6 +18,7 @@ public class Controle {
     /* Padrão de Projeto SINGLETON - Asseguro que haverá sempre
     uma e somente uma instância de Controle, acessível em qualquer lugar */
     public static Controle controle = new Controle();
+
     private TelaPintura telaPintura;
     private ListView<Forma> listView;
     private ArrayList<Forma> formas;

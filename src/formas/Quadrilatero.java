@@ -65,8 +65,8 @@ public class Quadrilatero extends Forma {
 
                 setxInicial(telaEdicao.getEntradaPosX().getValorCampo());
                 setyInicial(telaEdicao.getEntradaPosY().getValorCampo());
-                setBase(telaEdicao.getEntradaAltura().getValorCampo());
-                setAltura(telaEdicao.getEntradaBase().getValorCampo());
+                setBase(telaEdicao.getEntradaBase().getValorCampo());
+                setAltura(telaEdicao.getEntradaAltura().getValorCampo());
                 setCor(telaEdicao.getColorPicker().getValue());
 
                 telaEdicao.getStage().close(); Controle.controle.apagarQuadro();

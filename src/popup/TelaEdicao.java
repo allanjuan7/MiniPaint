@@ -16,6 +16,34 @@ public class TelaEdicao {
     protected ColorPicker colorPicker;
     protected Button btnConfirmar, btnCancelar;
     protected Stage stage;
+    private Forma forma;
+
+    public TelaEdicao (Forma forma){
+
+        this.forma = forma;
+
+        vBox = new VBox(10);
+        vBox.setPadding(new Insets(10, 10, 10, 10));
+        vBox.setAlignment(Pos.TOP_CENTER);
+
+        entradaPosX = new Entrada("PosX", forma.getxInicial());
+        entradaPosY = new Entrada("PosY", forma.getyInicial());
+
+        colorPicker = new ColorPicker();
+        colorPicker.setValue(forma.getCor());
+        colorPicker.setMinWidth(225);
+
+        btnConfirmar = new Button("Confirmar");
+        btnCancelar = new Button("Cancelar");
+
+        stage = new Stage();
+
+        btnCancelar.setOnAction(e -> {
+            stage.close();
+        });
+
+        vBox.getChildren().addAll(entradaPosX.getHBox(), entradaPosY.getHBox());
+    }
 
     public VBox getvBox() {
         return vBox;
@@ -73,34 +101,10 @@ public class TelaEdicao {
         this.stage = stage;
     }
 
-    public TelaEdicao (Forma forma){
-
-        vBox = new VBox(10);
-        vBox.setPadding(new Insets(10, 10, 10, 10));
-        vBox.setAlignment(Pos.TOP_CENTER);
-
-        entradaPosX = new Entrada("PosX", forma.getxInicial());
-        entradaPosY = new Entrada("PosY", forma.getyInicial());
-
-        colorPicker = new ColorPicker();
-        colorPicker.setValue(forma.getCor());
-        colorPicker.setMinWidth(225);
-
-        btnConfirmar = new Button("Confirmar");
-        btnCancelar = new Button("Cancelar");
-
-        stage = new Stage();
-
-        btnCancelar.setOnAction(e -> {
-            stage.close();
-        });
-
-        vBox.getChildren().addAll(entradaPosX.getHBox(), entradaPosY.getHBox());
-    }
-
     public void mostrar(){
         Scene scene = new Scene(vBox, 400, 300);
         stage.setScene(scene);
+        stage.setTitle("Edição - " + forma.toString());
         stage.show();
     }
 }
