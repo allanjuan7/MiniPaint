@@ -9,6 +9,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import popup.Mensagem;
 
 import static java.lang.Math.abs;
@@ -26,25 +30,44 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
     private ListView<Forma> formasListView;
 
     @FXML
-    private Button ferramentaTriangulo;
-
-    @FXML
-    private Button ferramentaQuadrilatero;
-
-    @FXML
-    private Button ferramentaCirculo;
+    private Button ferramentaQuadrilatero, ferramentaCirculo, ferramentaTriangulo;
 
     @FXML
     private ColorPicker selecCor;
 
     @FXML
-    private TelaPintura telaPintura;
-
-    @FXML
     private ChoiceBox<String> modoDeDesenhoBox;
 
     @FXML
+    private TelaPintura telaPintura;
+
+
+
+    @FXML
     public void initialize(){
+
+        Circle circuloDoBotao = new Circle();
+        circuloDoBotao.setFill(Color.TRANSPARENT); circuloDoBotao.setStroke(Color.BLACK);
+        circuloDoBotao.setRadius(10);
+
+        ferramentaCirculo.setGraphic(circuloDoBotao);
+
+        Rectangle retanguloDoBotao = new Rectangle();
+        retanguloDoBotao.setHeight(20); retanguloDoBotao.setWidth(20);
+        retanguloDoBotao.setFill(Color.TRANSPARENT); retanguloDoBotao.setStroke(Color.BLACK);
+
+        ferramentaQuadrilatero.setGraphic(retanguloDoBotao);
+
+        Polygon trianguloDoBotao = new Polygon();
+        trianguloDoBotao.getPoints().addAll(new Double[] {
+                0.00, 20.00,
+                10.00, 0.00,
+                20.00, 20.00
+        });
+        trianguloDoBotao.setFill(Color.TRANSPARENT);
+        trianguloDoBotao.setStroke(Color.BLACK);
+
+        ferramentaTriangulo.setGraphic(trianguloDoBotao);
 
         modoDeDesenhoBox.setItems(modoDeDesenhoList);
         modoDeDesenhoBox.setValue("Preencher");
@@ -75,6 +98,7 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
      * @param event
      * @throws Exception exceção ainda não tratada (ValoresInvalidosException)
      */
+
     public void onMouseReleased(MouseEvent event) throws Exception{
 
         double xFinal, yFinal, xInicial, yInicial, largura, altura;
@@ -181,7 +205,7 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
      * @see Controle
      */
     public void menuItemSalvarClicado(){
-        //A exceção que tava aqui ja esta sendo tratada no metodo serializarFigura
+        //A exceção que estava aqui já está sendo tratada no metodo serializarFigura
         Controle.controle.serializarFigura();
 
         Mensagem mensagem = new Mensagem("Figura salva com sucesso!", "Salvar");

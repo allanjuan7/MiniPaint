@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class TelaEdicao {
@@ -37,6 +38,10 @@ public class TelaEdicao {
         btnCancelar = new Button("Cancelar");
 
         stage = new Stage();
+
+        /* Esse comando faz com que o foco fique travado na tela de edição, impedindo que o
+        * usuário utilize o programa até ter terminado de editar a forma*/
+        stage.initModality(Modality.APPLICATION_MODAL);
 
         btnCancelar.setOnAction(e -> {
             stage.close();

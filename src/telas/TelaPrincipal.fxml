@@ -35,9 +35,9 @@
    <left>
       <ToolBar orientation="VERTICAL" prefHeight="391.0" prefWidth="70.0" BorderPane.alignment="CENTER">
         <items>
-            <Button fx:id="ferramentaTriangulo" minWidth="70.0" mnemonicParsing="false" onAction="#handle" prefWidth="55.0" text="T" />
-          <Button fx:id="ferramentaQuadrilatero" minWidth="70.0" mnemonicParsing="false" onAction="#handle" prefWidth="55.0" text="Q" />
-            <Button fx:id="ferramentaCirculo" minWidth="70.0" mnemonicParsing="false" onAction="#handle" prefWidth="55.0" text="C" />
+            <Button fx:id="ferramentaTriangulo" minWidth="70.0" mnemonicParsing="false" onAction="#handle" prefWidth="55.0" />
+          <Button fx:id="ferramentaQuadrilatero" minWidth="70.0" mnemonicParsing="false" onAction="#handle" prefWidth="55.0" />
+            <Button fx:id="ferramentaCirculo" minWidth="70.0" mnemonicParsing="false" onAction="#handle" prefWidth="55.0" />
             <Button fx:id="btnLimpar" minWidth="70.0" mnemonicParsing="false" onAction="#btnLimparClicado" prefWidth="70.0" text="Limpar" />
             <ColorPicker fx:id="selecCor" minWidth="70.0" prefHeight="25.0" prefWidth="55.0" />
             <ChoiceBox fx:id="modoDeDesenhoBox" prefWidth="70.0" />
