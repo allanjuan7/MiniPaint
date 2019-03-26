@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -101,7 +102,7 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
 
     public void onMouseReleased(MouseEvent event) throws Exception{
 
-        double xFinal, yFinal, xInicial, yInicial, largura, altura;
+        double xFinal, yFinal, xInicial, yInicial, deltaX, deltaY, altura, largura;
 
         xFinal = event.getX();
         yFinal = event.getY();
@@ -109,21 +110,34 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         xInicial = telaPintura.getxInicial();
         yInicial = telaPintura.getyInicial();
 
-        largura = abs(xInicial - xFinal);
-        altura = abs(yInicial - yFinal);
+        deltaX = xInicial - xFinal;
+        deltaY = yInicial - yFinal;
 
-        xInicial = Math.min(xFinal, xInicial);
-        yInicial = Math.min(yFinal, yInicial);
+        largura = abs(deltaX);
+        altura = abs(deltaY);
 
         Forma novaForma = null;
 
         if (figuraSelecionada == "Quadrilatero") {
+            xInicial = Math.min(xFinal, xInicial);
+            yInicial = Math.min(yFinal, yInicial);
             novaForma = new Quadrilatero(xInicial, yInicial, selecCor.getValue(), largura, altura, ++nQuadrilateros);
 
         } else if (figuraSelecionada == "Triangulo") {
-            novaForma = new Triangulo(xInicial, yInicial, selecCor.getValue(), largura, altura, ++nTriangulos);
+            String orientacaoDoTriangulo;
+
+            double numeroDeAllan = deltaX * deltaY;
+
+            if (numeroDeAllan > 0)
+                orientacaoDoTriangulo = "descendo";
+            else
+                orientacaoDoTriangulo = "subindo";
+
+            novaForma = new Triangulo(xInicial, yInicial, selecCor.getValue(), largura, altura, ++nTriangulos, orientacaoDoTriangulo);
 
         } else if (figuraSelecionada == "Circulo") {
+            xInicial = Math.min(xFinal, xInicial);
+            yInicial = Math.min(yFinal, yInicial);
             double raio = sqrt((largura * largura) + (altura * altura));
             novaForma = new Circulo(xInicial, yInicial, selecCor.getValue(), raio, ++nCirculos);
         }

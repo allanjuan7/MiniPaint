@@ -13,7 +13,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("TelaPrincipal.fxml"));
         primaryStage.setTitle("MiniPaint");
-        primaryStage.getIcons().add(new Image("recursos\\icone_da_janela.png"));
+        //primaryStage.getIcons().add(new Image("recursos/icone_da_janela.png"));
         primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.setResizable(false);
         primaryStage.show();
