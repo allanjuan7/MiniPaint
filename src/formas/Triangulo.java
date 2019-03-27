@@ -13,9 +13,9 @@ public class Triangulo extends Forma {
 
 
     private double base, altura;
-    private String orientacao;
+    private String modelo;
 
-    public Triangulo(double xInicial, double yInicial, Color cor, double base, double altura, int id, String orientacao) throws Exception{
+    public Triangulo(double xInicial, double yInicial, Color cor, double base, double altura, int id, String modelo) throws Exception{
         super(xInicial, yInicial, cor, id);
 
         if (base < 0 || altura < 0){
@@ -24,7 +24,7 @@ public class Triangulo extends Forma {
 
         this.base = base;
         this.altura = altura;
-        this.orientacao = orientacao;
+        this.modelo = modelo;
     }
 
     public void setBase(double base) throws ValorDeEntradaNegativoException {
@@ -57,16 +57,28 @@ public class Triangulo extends Forma {
 
         double Ax, Ay, Bx, By, Cx, Cy;
 
-        if (orientacao == "subindo"){
-            Ax = xInicial; Ay = yInicial + altura;
-            Bx = xInicial + base; By = yInicial + altura;
-            Cx = xInicial + base; Cy = yInicial;
+        Ax = xInicial; Ay = yInicial;
+        Bx = xInicial; By = yInicial;
+        Cx = xInicial; Cy = yInicial;
+
+        if (modelo == "A"){
+            By += altura;
+            Cx += base; Cy += altura;
         }
 
-        else{
-            Ax = xInicial; Ay = yInicial;
-            Bx = xInicial; By = yInicial + altura;
-            Cx = xInicial + base; Cy = yInicial + altura;
+        if (modelo == "B"){
+            Bx += base;
+            Cx += base; Cy -= altura;
+        }
+
+        if (modelo == "C"){
+            Bx -= base;
+            Cx -= base; Cy -= altura;
+        }
+
+        if (modelo == "D"){
+            By += altura;
+            Cx -= base; Cy += altura;
         }
 
         if (modoDeDesenho.equals("Contornar"))

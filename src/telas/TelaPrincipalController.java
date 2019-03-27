@@ -42,8 +42,6 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
     @FXML
     private TelaPintura telaPintura;
 
-
-
     @FXML
     public void initialize(){
 
@@ -62,7 +60,7 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         Polygon trianguloDoBotao = new Polygon();
         trianguloDoBotao.getPoints().addAll(new Double[] {
                 0.00, 20.00,
-                10.00, 0.00,
+                0.00, 0.00,
                 20.00, 20.00
         });
         trianguloDoBotao.setFill(Color.TRANSPARENT);
@@ -124,16 +122,17 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
             novaForma = new Quadrilatero(xInicial, yInicial, selecCor.getValue(), largura, altura, ++nQuadrilateros);
 
         } else if (figuraSelecionada == "Triangulo") {
-            String orientacaoDoTriangulo;
+            String modeloDoTriangulo = null;
+            if (xInicial < xFinal && yInicial < yFinal)
+                modeloDoTriangulo = "A";
+            if (xInicial < xFinal && yInicial > yFinal)
+                modeloDoTriangulo = "B";
+            if (xInicial > xFinal && yInicial > yFinal)
+                modeloDoTriangulo = "C";
+            if (modeloDoTriangulo == null)
+                modeloDoTriangulo = "D";
 
-            double numeroDeAllan = deltaX * deltaY;
-
-            if (numeroDeAllan > 0)
-                orientacaoDoTriangulo = "descendo";
-            else
-                orientacaoDoTriangulo = "subindo";
-
-            novaForma = new Triangulo(xInicial, yInicial, selecCor.getValue(), largura, altura, ++nTriangulos, orientacaoDoTriangulo);
+            novaForma = new Triangulo(xInicial, yInicial, selecCor.getValue(), largura, altura, ++nTriangulos, modeloDoTriangulo);
 
         } else if (figuraSelecionada == "Circulo") {
             xInicial = Math.min(xFinal, xInicial);
