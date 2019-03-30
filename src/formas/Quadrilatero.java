@@ -74,7 +74,7 @@ public class Quadrilatero extends Forma {
 
             } catch(ValorDeEntradaNegativoException ex){
 
-                Mensagem mensagemDeErro = new Mensagem("Valor de entrada negativo. Insira um valor válido", "Valores invalidos", 100, 500);
+                Mensagem mensagemDeErro = new Mensagem("Valor de entrada negativo. Insira um valor válido", "Valores invalidos", 100, 500, "recursos/icone_erro.png");
                 mensagemDeErro.mostrar();
             }
         });

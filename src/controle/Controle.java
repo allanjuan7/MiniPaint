@@ -1,6 +1,5 @@
 package controle;
 
-import formas.Figura;
 import formas.Forma;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ListView;

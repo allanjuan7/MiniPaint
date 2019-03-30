@@ -28,6 +28,10 @@ public class TelaEdicaoPoligono extends TelaEdicao {
 
         vBox.getChildren().addAll(entradaBase.getHBox(), entradaAltura.getHBox(), colorPicker);
 
+        /* Como o label altura é maior que os demais, é preciso esse comando para que a TextBox
+        * fique alinhada com as outras.*/
+        entradaAltura.getHBox().setSpacing(3);
+
         HBox hBoxInferior = new HBox(10);
         hBoxInferior.getChildren().addAll(btnConfirmar, btnCancelar);
         hBoxInferior.setAlignment(Pos.CENTER);
