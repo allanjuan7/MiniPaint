@@ -13,7 +13,19 @@ public class Quadrilatero extends Forma {
 
     private double base, altura;
 
-    public Quadrilatero(double xInicial, double yInicial, Color cor, double base, double altura, int id) throws Exception{
+    /**
+     * Construtor do quadrilátero que recebe as coordenadas âncora, base e altura do quadrilátero.
+     * Checa se a base e a altura são válidas e contrói o quadrilátero.
+     *
+     * @param xInicial Coordenada X do ponto âncora do quadrilátero
+     * @param yInicial Coordenada Y do ponto âncora do quadrilátero
+     * @param cor Cor do quadrilátero
+     * @param base Medida da base do quadrilátero
+     * @param altura Medida da altura do quadrilátero
+     * @param id Id da figura2D no array
+     * @throws ValorDeEntradaNegativoException Exceção lançada caso os valores da base ou altura sejam negativos.
+     */
+    public Quadrilatero(double xInicial, double yInicial, Color cor, double base, double altura, int id) throws ValorDeEntradaNegativoException{
         super(xInicial, yInicial, cor, id);
 
         if (base < 0 || altura < 0){
@@ -24,6 +36,12 @@ public class Quadrilatero extends Forma {
         this.altura = altura;
     }
 
+    /**
+     * Método set para a base. Não permite que a base seja negativa.
+     *
+     * @param base Medida da base do quadrilátero.
+     * @throws ValorDeEntradaNegativoException Exceção lançada caso os valores da base ou altura sejam negativos.
+     */
     public void setBase(double base) throws ValorDeEntradaNegativoException {
         if (base < 0) {
             throw new ValorDeEntradaNegativoException();
@@ -31,10 +49,21 @@ public class Quadrilatero extends Forma {
         this.base = base;
     }
 
+    /**
+     * Método get da base.
+     *
+     * @return Medida da base do quadrilátero.
+     */
     public double getBase() {
         return base;
     }
 
+    /**
+     * Método set da altura. Não permite que a mesma seja negativa.
+     *
+     * @param altura Medida da altura do quadrilátero.
+     * @throws ValorDeEntradaNegativoException Exceção lançada caso os valores da base ou altura sejam negativos.
+     */
     public void setAltura(double altura) throws ValorDeEntradaNegativoException {
         if (altura < 0) {
             throw new ValorDeEntradaNegativoException();
@@ -42,10 +71,20 @@ public class Quadrilatero extends Forma {
         this.altura = altura;
     }
 
+    /**
+     * Método get da altura.
+     *
+     * @return Medida da altura do quadrilátero.
+     */
     public double getAltura() {
         return altura;
     }
 
+    /**
+     * Método que recebe o contexto gráfico do canvas e, dependendo do modo de desenho, desenha o contorno ou a figura preenchida.
+     *
+     * @param contexto GraphicsContext da tela em que será desenhada a forma.
+     */
     public void desenhar(GraphicsContext contexto){
         super.desenhar(contexto);
 
@@ -56,6 +95,12 @@ public class Quadrilatero extends Forma {
             contexto.fillRect(xInicial, yInicial, base, altura);
     }
 
+    /**
+     * Método que cria uma janela de pop-up para editar o quadrilátero.
+     *
+     * @param telaPintura  tela onde a forma está pintada.
+     * @param listView Lista de figuras2D.
+     */
     public void editar(TelaPintura telaPintura, ListView listView){
         TelaEdicaoPoligono telaEdicao = new TelaEdicaoPoligono(this);
 
@@ -81,6 +126,13 @@ public class Quadrilatero extends Forma {
 
         telaEdicao.mostrar();
     }
+
+    /**
+     * Método toString do quadrilátero.
+     *
+     * @return String que será mostrada no listView.
+     */
+    @Override
     public String toString(){
         return "Quadrilátero " + id;
     }
