@@ -1,13 +1,13 @@
-package formas;
+package Program.formas;
 
-import controle.Controle;
-import excecoes.ValorDeEntradaNegativoException;
+import Program.controle.Controle;
+import Program.excecoes.ValorDeEntradaNegativoException;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ListView;
 import javafx.scene.paint.Color;
-import popup.Mensagem;
-import popup.TelaEdicaoCirculo;
-import telas.TelaPintura;
+import Program.popup.Mensagem;
+import Program.popup.TelaEdicaoCirculo;
+import Program.telas.TelaPintura;
 
 public class Circulo extends Forma{
 

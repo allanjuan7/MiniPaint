@@ -1,12 +1,8 @@
-package telas;
+package Program.telas;
 
-import formas.Circulo;
-import formas.Forma;
-import formas.Quadrilatero;
-import formas.Triangulo;
+import Program.formas.Forma;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.shape.Polygon;
 
 /**
  * TelaPintura é uma subclasse de Canvas que guarda a ultima posição clicada.
@@ -51,7 +47,7 @@ public class TelaPintura extends Canvas {
     }
 
     /**
-     * Método chamado para desenhar formas na tela. Redireciona o
+     * Método chamado para desenhar Program.formas na tela. Redireciona o
      * modo de desenho e o contexto gráfico para a forma.
      *
      * @see Forma

@@ -1,8 +1,8 @@
-package popup;
+package Program.popup;
 
-import formas.Forma;
-import formas.Quadrilatero;
-import formas.Triangulo;
+import Program.formas.Forma;
+import Program.formas.Quadrilatero;
+import Program.formas.Triangulo;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 

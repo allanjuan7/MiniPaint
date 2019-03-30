@@ -1,13 +1,12 @@
-package formas;
+package Program.formas;
 
-import excecoes.ValorDeEntradaNegativoException;
+import Program.excecoes.ValorDeEntradaNegativoException;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ListView;
 import javafx.scene.paint.Color;
-import telas.TelaPintura;
+import Program.telas.TelaPintura;
 
 import java.io.Serializable;
-import java.util.List;
 
 public abstract class Forma implements Serializable {
 
@@ -17,7 +16,7 @@ public abstract class Forma implements Serializable {
     protected int id;
 
     /**
-     * Construtor padrão, não instanciável, das formas contendo a posição inical, cor e id
+     * Construtor padrão, não instanciável, das Program.formas contendo a posição inical, cor e id
      * da forma em questão.
      *
      * @param xInicial posição X inicial da forma.
@@ -139,7 +138,7 @@ public abstract class Forma implements Serializable {
     }
 
     /**
-     * Método responsável por desenhar as formas na tela de pintura.
+     * Método responsável por desenhar as Program.formas na tela de pintura.
      * Será ampliado por cada tipo de forma específica a ser desenhada.
      * A superclasse Forma é responsável por setar a cor que a forma será desenhada.
      *
@@ -154,7 +153,7 @@ public abstract class Forma implements Serializable {
     }
 
     /**
-     * Método responsável por editar as formas implementado pelas classes filhas.
+     * Método responsável por editar as Program.formas implementado pelas classes filhas.
      *
      * @see Circulo
      * @see Quadrilatero

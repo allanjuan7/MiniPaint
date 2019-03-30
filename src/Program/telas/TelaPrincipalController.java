@@ -1,20 +1,19 @@
-package telas;
+package Program.telas;
 
-import controle.Controle;
-import formas.*;
+import Program.controle.Controle;
+import Program.formas.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
-import popup.Mensagem;
+import Program.popup.Mensagem;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.sqrt;

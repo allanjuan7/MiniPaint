@@ -1,6 +1,6 @@
-package popup;
+package Program.popup;
 
-import formas.Forma;
+import Program.formas.Forma;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

@@ -1,7 +1,7 @@
-package popup;
+package Program.popup;
 
-import formas.Circulo;
-import formas.Forma;
+import Program.formas.Circulo;
+import Program.formas.Forma;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 

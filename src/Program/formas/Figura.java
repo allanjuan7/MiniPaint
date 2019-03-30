@@ -1,4 +1,4 @@
-package formas;
+package Program.formas;
 
 import java.io.Serializable;
 import java.util.ArrayList;

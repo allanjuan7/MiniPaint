@@ -1,13 +1,12 @@
-package controle;
+package Program.controle;
 
-import formas.Figura;
-import formas.Forma;
+import Program.formas.Forma;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ListView;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import telas.TelaPintura;
+import Program.telas.TelaPintura;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -162,7 +161,7 @@ public class Controle {
     public void abrirArquivo(String caminho){
 
         ArrayList<Forma> figuraDesserializada = controle.desserializarFigura(caminho);
-        /* Controle.controle.reiniciarFigura(); para jogar a figura atual fora
+        /* Controle.Program.controle.reiniciarFigura(); para jogar a figura atual fora
         e eliminar possíveis duplicatas */
         Controle.controle.incorporarFiguraCarregada(figuraDesserializada);
 
