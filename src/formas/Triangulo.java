@@ -151,9 +151,7 @@ public class Triangulo extends Forma {
                 telaEdicao.getStage().close(); Controle.controle.apagarQuadro();
                 Controle.controle.atualizarListViewERedesenhar(telaPintura, listView);
             } catch(ValorDeEntradaNegativoException ex){
-
-                Mensagem mensagemDeErro = new Mensagem("Valor de entrada negativo. Insira um valor válido", "Valores invalidos", 100, 500, "recursos/icone_erro.png");
-                mensagemDeErro.mostrar();
+                ex.mostrarPopUpDeErro();
             }
 
         });

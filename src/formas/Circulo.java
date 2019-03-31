@@ -85,9 +85,7 @@ public class Circulo extends Forma{
                 Controle.controle.atualizarListViewERedesenhar(telaPintura, listView);
 
             } catch (ValorDeEntradaNegativoException ex){
-
-                Mensagem mensagemDeErro = new Mensagem("Valor de entrada inválido. Insira um valor maior que 0.", "Valores invalidos", 100, 500, "recursos/icone_erro.png");
-                mensagemDeErro.mostrar();
+                ex.mostrarPopUpDeErro();
             }
         });
 

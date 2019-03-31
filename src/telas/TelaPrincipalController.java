@@ -1,6 +1,7 @@
 package telas;
 
 import controle.Controle;
+import excecoes.ArrayVazioException;
 import formas.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,12 +10,14 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import popup.Mensagem;
+import popup.TelaOrdemDasFormas;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.sqrt;
@@ -200,11 +203,25 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
         Controle.controle.editarForma();
     }
 
+    public void mudarOrdemDasFormasClicado(){
+        try{
+            if (formasListView.getItems().size() == 0)
+                throw new ArrayVazioException();
+
+            Controle.controle.mudarOrdemDasFormas();
+
+        } catch (ArrayVazioException ex){
+            ex.mostrarPopUpDeErro();
+        }
+
+    }
+
     /**
      * Método responsável pelo botão de abrir arquivo.
      *
      * @see Controle
      */
+
     public void menuItemAbrirClicado(){
         /*Do jeito que esta implementado atualmente adiciona a figura que esta sendo carregada
         a figura atual, podendo, e causando duplicatas*/
@@ -217,6 +234,7 @@ public class TelaPrincipalController implements EventHandler<ActionEvent> {
      *
      * @see Controle
      */
+
     public void menuItemSalvarClicado(){
         //A exceção que estava aqui já está sendo tratada no metodo serializarFigura
         Controle.controle.serializarFigura();

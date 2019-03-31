@@ -1,13 +1,18 @@
 package controle;
 
+import excecoes.FormaNaoSelecionadaException;
 import formas.Forma;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import popup.Mensagem;
+import popup.TelaOrdemDasFormas;
 import telas.TelaPintura;
 
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,18 +55,34 @@ public class Controle {
     }
 
     public void editarForma() {
-        Forma formaSelecionada = listView.getSelectionModel().getSelectedItem();
-        formaSelecionada.editar(telaPintura, listView);
+        try{
+            Forma formaSelecionada = listView.getSelectionModel().getSelectedItem();
+
+            if (formaSelecionada == null)
+                throw new FormaNaoSelecionadaException();
+
+            formaSelecionada.editar(telaPintura, listView);
+
+        } catch (FormaNaoSelecionadaException ex){
+            ex.mostrarPopUpDeErro();
+        }
+
     }
 
     public void deletarForma() {
-        int index = listView.getSelectionModel().getSelectedIndex();
+        try{
+            int index = listView.getSelectionModel().getSelectedIndex();
 
-        if (index >= 0) {
+            if (index == -1)
+                throw new FormaNaoSelecionadaException();
+
             controle.getFormas().remove(index);
 
             controle.apagarQuadro();
             controle.atualizarListViewERedesenhar(telaPintura, listView);
+
+        } catch (FormaNaoSelecionadaException ex){
+            ex.mostrarPopUpDeErro();
         }
     }
 
@@ -168,6 +189,31 @@ public class Controle {
         Controle.controle.apagarQuadro();
 
         Controle.controle.atualizarListViewERedesenhar(telaPintura, listView);
+    }
+
+    public void mudarOrdemDasFormas(){
+        TelaOrdemDasFormas telaPopUp = new TelaOrdemDasFormas(formas);
+        telaPopUp.mostrar();
+    }
+    public void permutarFormas(int indexForma1, int indexForma2, ChoiceBox<Forma> choiceBox){
+        Forma forma1 = formas.get(indexForma1);
+        Forma forma2 = formas.get(indexForma2);
+
+        formas.set(indexForma1, forma2);
+        formas.set(indexForma2, forma1);
+
+        /*Claramente esta implementação não tem o desempenho ideal, porém como não estamos tendo
+        * problemas com isso, foi a solução mais cômoda no momento. Posteriormente podemos fazer a implementação
+        * utilizando uma observable list.*/
+
+        choiceBox.getItems().clear();
+        for (Forma f : formas){
+            choiceBox.getItems().add(f);
+        }
+
+        choiceBox.setValue(formas.get(indexForma2));
+
+        atualizarListViewERedesenhar(telaPintura, listView);
     }
 
 }

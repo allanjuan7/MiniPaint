@@ -53,60 +53,24 @@ public class TelaEdicao {
         vBox.getChildren().addAll(entradaPosX.getHBox(), entradaPosY.getHBox());
     }
 
-    public VBox getvBox() {
-        return vBox;
-    }
-
-    public void setvBox(VBox vBox) {
-        this.vBox = vBox;
-    }
-
     public Entrada getEntradaPosX() {
         return entradaPosX;
-    }
-
-    public void setEntradaPosX(Entrada entradaPosX) {
-        this.entradaPosX = entradaPosX;
     }
 
     public Entrada getEntradaPosY() {
         return entradaPosY;
     }
 
-    public void setEntradaPosY(Entrada entradaPosY) {
-        this.entradaPosY = entradaPosY;
-    }
-
     public ColorPicker getColorPicker() {
         return colorPicker;
-    }
-
-    public void setColorPicker(ColorPicker colorPicker) {
-        this.colorPicker = colorPicker;
     }
 
     public Button getBtnConfirmar() {
         return btnConfirmar;
     }
 
-    public void setBtnConfirmar(Button btnConfirmar) {
-        this.btnConfirmar = btnConfirmar;
-    }
-
-    public Button getBtnCancelar() {
-        return btnCancelar;
-    }
-
-    public void setBtnCancelar(Button btnCancelar) {
-        this.btnCancelar = btnCancelar;
-    }
-
     public Stage getStage() {
         return stage;
-    }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 
     public void mostrar(){

@@ -35,6 +35,7 @@ public class Mensagem {
         stage.setResizable(false);
 
         Label label = new Label(mensagem);
+        label.setMaxHeight(alturaDaJanela);
 
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);

@@ -13,10 +13,6 @@ public class TelaEdicaoCirculo extends TelaEdicao {
         return entradaRaio;
     }
 
-    public void setEntradaRaio(Entrada entradaRaio) {
-        this.entradaRaio = entradaRaio;
-    }
-
     public TelaEdicaoCirculo(Forma forma){
         super(forma);
 
